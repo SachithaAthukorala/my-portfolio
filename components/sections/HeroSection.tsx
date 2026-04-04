@@ -87,7 +87,7 @@ export function HeroSection() {
               {/* Photo */}
               <div className="relative w-72 h-80 rounded-2xl overflow-hidden border border-white/12 shadow-[0_32px_80px_rgba(0,0,0,0.5)]">
                 <Image
-                  src="/sachitha.jpg"
+                  src="/sachitha.png"
                   alt="Sachitha Athukorala"
                   fill
                   priority
