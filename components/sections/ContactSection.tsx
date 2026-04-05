@@ -1,12 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Mail, MapPin, Github, Linkedin, Twitter, Send } from 'lucide-react'
-import { siteConfig } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 export function ContactSection() {
+  const [data, setData] = useState<SiteData | null>(null)
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
+
+  useEffect(() => {
+    loadData().then(setData)
+  }, [])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -17,6 +23,10 @@ export function ContactSection() {
     setSent(true)
     setForm({ name: '', email: '', subject: '', message: '' })
   }
+
+  const siteConfig = data?.siteConfig
+
+  if (!siteConfig) return null
 
   return (
     <section id="contact" className="py-28 bg-navy-700 relative">
