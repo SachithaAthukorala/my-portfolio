@@ -4,7 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { ArrowRight, Github, Linkedin, Download, Camera, Code2, Smartphone, Monitor } from 'lucide-react'
-import { siteConfig, stats } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 const roles = [
   { label: 'Photographer', icon: Camera, color: 'text-gold-500', border: 'border-gold-500/40', bg: 'bg-gold-500/10' },
@@ -68,6 +69,26 @@ function TypingBadge() {
 }
 
 export function HeroSection() {
+  const [data, setData] = useState<SiteData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    loadData().then(setData).finally(() => setLoading(false))
+  }, [])
+
+  if (loading || !data) {
+    return (
+      <section className="relative min-h-screen flex items-center bg-navy-700 overflow-hidden">
+        <div className="relative max-w-7xl mx-auto px-5 md:px-8 pt-24 pb-20 w-full">
+          <p className="text-navy-200">Loading...</p>
+        </div>
+      </section>
+    )
+  }
+
+  const siteConfig = data.siteConfig
+  const stats = data.stats
+
   return (
     <section className="relative min-h-screen flex items-center bg-navy-700 overflow-hidden">
       {/* Background */}

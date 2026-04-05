@@ -5,15 +5,26 @@ import { loadData, saveData } from '@/lib/store'
 import { PageHeader, Card, CardTitle, Field, SaveBtn, Toast, AddBtn, DeleteBtn } from '@/components/admin/AdminUI'
 
 export default function AdminAboutPage() {
-  const [d, setD]         = useState(() => loadData())
+  const [d, setD]         = useState<any>(null)
   const [toast, setToast] = useState('')
+  const [saving, setSaving] = useState(false)
 
-  useEffect(() => { setD(loadData()) }, [])
+  useEffect(() => {
+    loadData().then(setD)
+  }, [])
 
-  function save() {
-    saveData({ experiences: d.experiences, certifications: d.certifications })
-    setToast('About section saved!')
-    setTimeout(() => setToast(''), 3000)
+  async function save() {
+    setSaving(true)
+    try {
+      await saveData({ experiences: d?.experiences, certifications: d?.certifications })
+      setToast('About section saved!')
+      setTimeout(() => setToast(''), 3000)
+    } catch (error) {
+      setToast('Error saving about section')
+      setTimeout(() => setToast(''), 3000)
+    } finally {
+      setSaving(false)
+    }
   }
 
   function setExp(i: number, k: keyof typeof d.experiences[0], v: string | string[]) {
@@ -68,7 +79,7 @@ export default function AdminAboutPage() {
 
   return (
     <div>
-      <PageHeader title="About" desc="Edit your experience, certifications, and background." action={<SaveBtn onClick={save} />} />
+      <PageHeader title="About" desc="Edit your experience, certifications, and background." action={<SaveBtn onClick={save} saving={saving} />} />
 
       {/* Work experience */}
       <Card className="mb-4">
@@ -77,7 +88,7 @@ export default function AdminAboutPage() {
           <AddBtn onClick={addExp} label="+ Add Role" />
         </div>
 
-        {d.experiences.map((exp, i) => (
+        {d?.experiences?.map((exp, i) => (
           <div key={i} style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: 16, marginBottom: 12 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
               <p style={{ color: '#9aabc5', fontSize: 12, fontWeight: 600 }}>Role #{i + 1}</p>
@@ -112,7 +123,7 @@ export default function AdminAboutPage() {
           <CardTitle>Certifications</CardTitle>
           <AddBtn onClick={addCert} label="+ Add Cert" />
         </div>
-        {d.certifications.map((cert, i) => (
+        {d?.certifications?.map((cert, i) => (
           <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 100px auto', gap: 8, marginBottom: 8, alignItems: 'flex-end' }}>
             <Field label={i === 0 ? 'Name' : ''} value={cert.name}   onChange={v => setCert(i, 'name', v)}   placeholder="AWS Certified Developer" />
             <Field label={i === 0 ? 'Issuer' : ''} value={cert.issuer} onChange={v => setCert(i, 'issuer', v)} placeholder="Amazon Web Services" />
@@ -124,7 +135,7 @@ export default function AdminAboutPage() {
       </Card>
 
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-        <SaveBtn onClick={save} />
+        <SaveBtn onClick={save} saving={saving} />
       </div>
 
       {toast && <Toast msg={toast} onClose={() => setToast('')} />}

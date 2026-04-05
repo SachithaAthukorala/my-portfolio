@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, ExternalLink, Github } from 'lucide-react'
-import { projects } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData, SiteData as SiteDataType } from '@/lib/store'
 import type { Project } from '@/lib/data'
 
 const platforms = ['All', 'web', 'mobile', 'desktop', 'fullstack']
@@ -18,7 +19,13 @@ const platformLabels: Record<string, string> = {
 
 export default function WorksPage() {
   const [active, setActive] = useState('All')
+  const [data, setData] = useState<SiteDataType | null>(null)
 
+  useEffect(() => {
+    loadData().then(setData)
+  }, [])
+
+  const projects = data?.projects || []
   const filtered = active === 'All' ? projects : projects.filter((p) => p.platform === active)
 
   return (

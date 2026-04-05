@@ -1,16 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Clock, ArrowRight, Tag } from 'lucide-react'
-import { blogPosts } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 import { formatDate } from '@/lib/utils'
 
-const allCategories = ['All', ...Array.from(new Set(blogPosts.map((p) => p.category)))]
-
 export function BlogClient() {
+    const [data, setData] = useState<SiteData | null>(null)
     const [active, setActive] = useState('All')
+
+    useEffect(() => {
+      loadData().then(setData)
+    }, [])
+
+    const blogPosts = data?.blogPosts || []
+    const allCategories = ['All', ...Array.from(new Set(blogPosts.map((p) => p.category)))]
 
     const filtered =
         active === 'All'

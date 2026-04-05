@@ -1,4 +1,8 @@
-import { skills } from '@/lib/data'
+'use client'
+
+import { useEffect, useState } from 'react'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 const colorMap: Record<string, string> = {
   accent: 'bg-accent-400/10 border-accent-400/20 text-accent-300',
@@ -28,6 +32,14 @@ const borderColorMap: Record<string, string> = {
 }
 
 export function SkillsSection() {
+  const [data, setData] = useState<SiteData | null>(null)
+
+  useEffect(() => {
+    loadData().then(setData)
+  }, [])
+
+  const skills = data?.skills || []
+
   return (
     <section id="skills" className="py-28 bg-navy-700 relative">
       <div className="max-w-7xl mx-auto px-5 md:px-8">

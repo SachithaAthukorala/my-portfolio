@@ -1,5 +1,5 @@
-// Client-side store using localStorage so edits persist without a database.
-// In production you'd replace this with API calls to a real DB.
+// Store that syncs with /api/data/load and /api/data/save endpoints.
+// Data is persisted in /public/data.json on the server.
 
 import { siteConfig, skills, projects, blogPosts, photoCategories, stats, experiences, certifications } from './data'
 
@@ -14,29 +14,51 @@ export type SiteData = {
   certifications: typeof certifications
 }
 
-const KEY = 'portfolio_data'
-
-export function loadData(): SiteData {
-  if (typeof window === 'undefined') return getDefaults()
+export async function loadData(): Promise<SiteData> {
   try {
-    const raw = localStorage.getItem(KEY)
-    if (!raw) return getDefaults()
-    return { ...getDefaults(), ...JSON.parse(raw) }
-  } catch {
+    const res = await fetch('/api/data/load', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (!res.ok) {
+      console.warn('Failed to load data from API, using defaults')
+      return getDefaults()
+    }
+
+    const json = await res.json()
+    return json.data || getDefaults()
+  } catch (error) {
+    console.warn('Error loading data:', error)
     return getDefaults()
   }
 }
 
-export function saveData(data: Partial<SiteData>) {
-  if (typeof window === 'undefined') return
-  const current = loadData()
-  const next = { ...current, ...data }
-  localStorage.setItem(KEY, JSON.stringify(next))
+export async function saveData(data: Partial<SiteData>): Promise<void> {
+  try {
+    const res = await fetch('/api/data/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+
+    if (!res.ok) {
+      throw new Error(`Save failed with status ${res.status}`)
+    }
+  } catch (error) {
+    console.error('Error saving data:', error)
+    throw error
+  }
 }
 
-export function resetData() {
-  if (typeof window === 'undefined') return
-  localStorage.removeItem(KEY)
+export async function resetData() {
+  // Reset to defaults by saving the default data
+  try {
+    await saveData(getDefaults())
+  } catch (error) {
+    console.error('Error resetting data:', error)
+    throw error
+  }
 }
 
 function getDefaults(): SiteData {

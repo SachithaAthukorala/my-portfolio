@@ -1,10 +1,20 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { ArrowRight, ExternalLink } from 'lucide-react'
-import { projects } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 export function FeaturedProjects() {
-  const featured = projects.filter((p) => p.featured).slice(0, 3)
+  const [data, setData] = useState<SiteData | null>(null)
+
+  useEffect(() => {
+    loadData().then(setData)
+  }, [])
+
+  const featured = data?.projects?.filter((p) => p.featured).slice(0, 3) || []
 
   return (
     <section id="projects" className="py-28 bg-navy-800/40 relative">

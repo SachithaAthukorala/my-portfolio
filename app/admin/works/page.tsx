@@ -17,17 +17,28 @@ function emptyProject(): Project {
 }
 
 export default function AdminWorksPage() {
-  const [d, setD]             = useState(() => loadData())
+  const [d, setD]             = useState<any>(null)
   const [editing, setEditing] = useState<number | null>(null)
   const [toast, setToast]     = useState('')
+  const [saving, setSaving]   = useState(false)
   const [newTag, setNewTag]   = useState('')
 
-  useEffect(() => { setD(loadData()) }, [])
+  useEffect(() => {
+    loadData().then(setD)
+  }, [])
 
-  function save() {
-    saveData({ projects: d.projects })
-    setToast('Projects saved!')
-    setTimeout(() => setToast(''), 3000)
+  async function save() {
+    setSaving(true)
+    try {
+      await saveData({ projects: d?.projects })
+      setToast('Projects saved!')
+      setTimeout(() => setToast(''), 3000)
+    } catch (error) {
+      setToast('Error saving projects')
+      setTimeout(() => setToast(''), 3000)
+    } finally {
+      setSaving(false)
+    }
   }
 
   function setProj(i: number, k: keyof Project, v: unknown) {
@@ -74,17 +85,17 @@ export default function AdminWorksPage() {
 
   return (
     <div>
-      <PageHeader title="Works" desc={`${d.projects.length} projects`} action={
+      <PageHeader title="Works" desc={`${d?.projects?.length || 0} projects`} action={
         <div style={{ display: 'flex', gap: 10 }}>
           <AddBtn onClick={addProject} label="+ New Project" />
-          <SaveBtn onClick={save} />
+          <SaveBtn onClick={save} saving={saving} />
         </div>
       } />
 
       <div style={{ display: 'grid', gridTemplateColumns: editing !== null ? '280px 1fr' : '1fr', gap: 16, alignItems: 'start' }}>
         {/* List */}
         <div>
-          {d.projects.map((p, i) => (
+          {d?.projects?.map((p, i) => (
             <div key={i} onClick={() => setEditing(i)} style={{
               padding: '12px 14px', borderRadius: 10, marginBottom: 8, cursor: 'pointer', transition: 'all .15s',
               background: editing === i ? 'rgba(59,125,216,0.12)' : 'rgba(255,255,255,0.03)',
@@ -107,7 +118,7 @@ export default function AdminWorksPage() {
               </div>
             </div>
           ))}
-          {d.projects.length === 0 && <p style={{ color: '#3d5980', fontSize: 13 }}>No projects yet.</p>}
+          {d?.projects?.length === 0 && <p style={{ color: '#3d5980', fontSize: 13 }}>No projects yet.</p>}
         </div>
 
         {/* Editor */}
@@ -193,13 +204,13 @@ export default function AdminWorksPage() {
             </Card>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <SaveBtn onClick={save} />
+              <SaveBtn onClick={save} saving={saving} />
             </div>
           </div>
         )}
       </div>
 
-      {!proj && d.projects.length > 0 && (
+      {!proj && d?.projects?.length > 0 && (
         <p style={{ color: '#3d5980', fontSize: 13, marginTop: 12 }}>← Select a project to edit it.</p>
       )}
 

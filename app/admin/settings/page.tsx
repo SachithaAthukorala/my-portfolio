@@ -5,19 +5,30 @@ import { loadData, saveData, resetData } from '@/lib/store'
 import { PageHeader, Card, CardTitle, Field, SaveBtn, Toast, Divider } from '@/components/admin/AdminUI'
 
 export default function AdminSettingsPage() {
-  const [d, setD]         = useState(() => loadData())
+  const [d, setD]         = useState<any>(null)
   const [toast, setToast] = useState('')
+  const [saving, setSaving] = useState(false)
 
-  useEffect(() => { setD(loadData()) }, [])
+  useEffect(() => {
+    loadData().then(setD)
+  }, [])
 
   function cfg(key: string, val: string) {
     setD(p => ({ ...p, siteConfig: { ...p.siteConfig, [key]: val } }))
   }
 
-  function save() {
-    saveData({ siteConfig: d.siteConfig })
-    setToast('Settings saved!')
-    setTimeout(() => setToast(''), 3000)
+  async function save() {
+    setSaving(true)
+    try {
+      await saveData({ siteConfig: d?.siteConfig })
+      setToast('Settings saved!')
+      setTimeout(() => setToast(''), 3000)
+    } catch (error) {
+      setToast('Error saving settings')
+      setTimeout(() => setToast(''), 3000)
+    } finally {
+      setSaving(false)
+    }
   }
 
   function handleReset() {
@@ -28,11 +39,11 @@ export default function AdminSettingsPage() {
     setTimeout(() => setToast(''), 3000)
   }
 
-  const s = d.siteConfig
+  const s = d?.siteConfig || {}
 
   return (
     <div>
-      <PageHeader title="Settings" desc="Site-wide configuration and profile details." action={<SaveBtn onClick={save} />} />
+      <PageHeader title="Settings" desc="Site-wide configuration and profile details." action={<SaveBtn onClick={save} saving={saving} />} />
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, maxWidth: 800 }}>
         {/* Profile */}
@@ -97,7 +108,7 @@ export default function AdminSettingsPage() {
       </div>
 
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end', maxWidth: 800 }}>
-        <SaveBtn onClick={save} />
+        <SaveBtn onClick={save} saving={saving} />
       </div>
 
       {toast && <Toast msg={toast} onClose={() => setToast('')} />}

@@ -1,9 +1,21 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { ArrowRight, Camera } from 'lucide-react'
-import { photoCategories } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 export function PhotoSection() {
+  const [data, setData] = useState<SiteData | null>(null)
+
+  useEffect(() => {
+    loadData().then(setData)
+  }, [])
+
+  const photoCategories = data?.photoCategories || []
+
   return (
     <section id="photography" className="py-28 bg-navy-700 relative">
       <div className="max-w-7xl mx-auto px-5 md:px-8">

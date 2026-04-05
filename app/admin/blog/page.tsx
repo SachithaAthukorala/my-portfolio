@@ -15,17 +15,28 @@ function emptyPost(): BlogPost {
 }
 
 export default function AdminBlogPage() {
-  const [d, setD]             = useState(() => loadData())
+  const [d, setD]             = useState<any>(null)
   const [editing, setEditing] = useState<number | null>(null)
   const [toast, setToast]     = useState('')
+  const [saving, setSaving]   = useState(false)
   const [newTag, setNewTag]   = useState('')
 
-  useEffect(() => { setD(loadData()) }, [])
+  useEffect(() => {
+    loadData().then(setD)
+  }, [])
 
-  function save() {
-    saveData({ blogPosts: d.blogPosts })
-    setToast('Blog posts saved!')
-    setTimeout(() => setToast(''), 3000)
+  async function save() {
+    setSaving(true)
+    try {
+      await saveData({ blogPosts: d?.blogPosts })
+      setToast('Blog posts saved!')
+      setTimeout(() => setToast(''), 3000)
+    } catch (error) {
+      setToast('Error saving blog posts')
+      setTimeout(() => setToast(''), 3000)
+    } finally {
+      setSaving(false)
+    }
   }
 
   function setPost(i: number, k: keyof BlogPost, v: unknown) {
@@ -56,17 +67,17 @@ export default function AdminBlogPage() {
 
   return (
     <div>
-      <PageHeader title="Blog" desc={`${d.blogPosts.length} posts`} action={
+      <PageHeader title="Blog" desc={`${d?.blogPosts?.length || 0} posts`} action={
         <div style={{ display: 'flex', gap: 10 }}>
           <AddBtn onClick={addPost} label="+ New Post" />
-          <SaveBtn onClick={save} />
+          <SaveBtn onClick={save} saving={saving} />
         </div>
       } />
 
       <div style={{ display: 'grid', gridTemplateColumns: post ? '280px 1fr' : '1fr', gap: 16, alignItems: 'start' }}>
         {/* List */}
         <div>
-          {d.blogPosts.map((p, i) => (
+          {d?.blogPosts?.map((p, i) => (
             <div key={i} onClick={() => setEditing(i)} style={{
               padding: '12px 14px', borderRadius: 10, marginBottom: 8, cursor: 'pointer',
               background: editing === i ? 'rgba(59,125,216,0.12)' : 'rgba(255,255,255,0.03)',
@@ -90,7 +101,7 @@ export default function AdminBlogPage() {
               </div>
             </div>
           ))}
-          {d.blogPosts.length === 0 && <p style={{ color: '#3d5980', fontSize: 13 }}>No posts yet.</p>}
+          {d?.blogPosts?.length === 0 && <p style={{ color: '#3d5980', fontSize: 13 }}>No posts yet.</p>}
         </div>
 
         {/* Editor */}
@@ -144,13 +155,13 @@ export default function AdminBlogPage() {
             </Card>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <SaveBtn onClick={save} />
+              <SaveBtn onClick={save} saving={saving} />
             </div>
           </div>
         )}
       </div>
 
-      {!post && d.blogPosts.length > 0 && (
+      {!post && d?.blogPosts?.length > 0 && (
         <p style={{ color: '#3d5980', fontSize: 13, marginTop: 12 }}>← Select a post to edit it.</p>
       )}
 

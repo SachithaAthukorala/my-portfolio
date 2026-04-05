@@ -5,11 +5,14 @@ import { loadData, saveData } from '@/lib/store'
 import { PageHeader, Card, CardTitle, Field, SaveBtn, Toast, Divider, TagPill, AddBtn } from '@/components/admin/AdminUI'
 
 export default function AdminHeroPage() {
-  const [d, setD]           = useState(() => loadData())
+  const [d, setD]           = useState<any>(null)
   const [toast, setToast]   = useState('')
+  const [saving, setSaving] = useState(false)
   const [newRole, setNewRole] = useState('')
 
-  useEffect(() => { setD(loadData()) }, [])
+  useEffect(() => {
+    loadData().then(setD)
+  }, [])
 
   function cfg(key: string, val: string) {
     setD(p => ({ ...p, siteConfig: { ...p.siteConfig, [key]: val } }))
@@ -27,17 +30,25 @@ export default function AdminHeroPage() {
     setD(p => ({ ...p, stats: p.stats.filter((_, j) => j !== i) }))
   }
 
-  function save() {
-    saveData({ siteConfig: d.siteConfig, stats: d.stats })
-    setToast('Hero section saved!')
-    setTimeout(() => setToast(''), 3000)
+  async function save() {
+    setSaving(true)
+    try {
+      await saveData({ siteConfig: d.siteConfig, stats: d.stats })
+      setToast('Hero section saved!')
+      setTimeout(() => setToast(''), 3000)
+    } catch (error) {
+      setToast('Error saving hero section')
+      setTimeout(() => setToast(''), 3000)
+    } finally {
+      setSaving(false)
+    }
   }
 
-  const s = d.siteConfig
+  const s = d?.siteConfig || {}
 
   return (
     <div>
-      <PageHeader title="Hero Section" desc="Edit the main landing section of your portfolio." action={<SaveBtn onClick={save} />} />
+      <PageHeader title="Hero Section" desc="Edit the main landing section of your portfolio." action={<SaveBtn onClick={save} saving={saving} />} />
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         {/* Identity */}
@@ -84,7 +95,7 @@ export default function AdminHeroPage() {
       </div>
 
       <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-        <SaveBtn onClick={save} />
+        <SaveBtn onClick={save} saving={saving} />
       </div>
 
       {toast && <Toast msg={toast} onClose={() => setToast('')} />}

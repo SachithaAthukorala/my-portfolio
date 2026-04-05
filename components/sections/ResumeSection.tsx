@@ -1,7 +1,20 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { Download } from 'lucide-react'
-import { experiences, certifications } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 export function ResumeSection() {
+  const [data, setData] = useState<SiteData | null>(null)
+
+  useEffect(() => {
+    loadData().then(setData)
+  }, [])
+
+  const experiences = data?.experiences || []
+  const certifications = data?.certifications || []
+
   return (
     <section id="resume" className="py-28 bg-navy-800/40 relative">
       <div className="glow-line" />

@@ -8,17 +8,28 @@ import { Upload, Link2, X } from 'lucide-react'
 type UploadMode = 'url' | 'file'
 
 export default function AdminPhotosPage() {
-  const [d, setD]         = useState(() => loadData())
+  const [d, setD]         = useState<any>(null)
   const [toast, setToast] = useState('')
+  const [saving, setSaving] = useState(false)
   const [modes, setModes] = useState<Record<number, UploadMode>>({})
   const fileRefs          = useRef<Record<number, HTMLInputElement | null>>({})
 
-  useEffect(() => { setD(loadData()) }, [])
+  useEffect(() => {
+    loadData().then(setD)
+  }, [])
 
-  function save() {
-    saveData({ photoCategories: d.photoCategories })
-    setToast('Photo albums saved!')
-    setTimeout(() => setToast(''), 3000)
+  async function save() {
+    setSaving(true)
+    try {
+      await saveData({ photoCategories: d?.photoCategories })
+      setToast('Photo albums saved!')
+      setTimeout(() => setToast(''), 3000)
+    } catch (error) {
+      setToast('Error saving photo albums')
+      setTimeout(() => setToast(''), 3000)
+    } finally {
+      setSaving(false)
+    }
   }
 
   function setAlbum(i: number, k: string, v: string | number) {
@@ -60,17 +71,17 @@ export default function AdminPhotosPage() {
     <div>
       <PageHeader
         title="Photo Albums"
-        desc={`${d.photoCategories.length} albums`}
+        desc={`${d?.photoCategories?.length || 0} albums`}
         action={
           <div style={{ display: 'flex', gap: 10 }}>
             <AddBtn onClick={addAlbum} label="+ New Album" />
-            <SaveBtn onClick={save} />
+            <SaveBtn onClick={save} saving={saving} />
           </div>
         }
       />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16 }}>
-        {d.photoCategories.map((album, i) => {
+        {d?.photoCategories?.map((album, i) => {
           const mode = modes[i] || 'url'
           return (
             <Card key={i}>
@@ -183,7 +194,7 @@ export default function AdminPhotosPage() {
           )
         })}
 
-        {d.photoCategories.length === 0 && (
+        {d?.photoCategories?.length === 0 && (
           <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '40px 0' }}>
             <p style={{ color: '#3d5980', fontSize: 14 }}>No albums yet. Click "+ New Album" to add one.</p>
           </div>
@@ -191,7 +202,7 @@ export default function AdminPhotosPage() {
       </div>
 
       <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
-        <SaveBtn onClick={save} />
+        <SaveBtn onClick={save} saving={saving} />
       </div>
 
       {toast && <Toast msg={toast} onClose={() => setToast('')} />}
