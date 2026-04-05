@@ -15,9 +15,12 @@ export async function POST() {
       return Response.json({ success: true, data: defaults })
     }
 
-    // Strip mongoose internal fields
-    const { _id, __v, createdAt, updatedAt, ...data } = doc as any
-    return Response.json({ success: true, data })
+    // Strip mongoose internal fields and merge with defaults!
+    // This prevents existing data from disappearing if MongoDB only has a partial save.
+    const { _id, __v, createdAt, updatedAt, ...dbData } = doc as any
+    const mergedData = { ...defaults, ...dbData }
+    
+    return Response.json({ success: true, data: mergedData })
   } catch (error) {
     console.error('Error loading data from MongoDB:', error)
     // Fallback to defaults so the site still works
