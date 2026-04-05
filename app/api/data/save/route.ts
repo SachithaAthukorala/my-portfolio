@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       }, { status: 401 })
     }
 
-    // Parse request
+    // Parse incoming data
     const body = await request.json()
 
     // Read current data
