@@ -1,7 +1,71 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Github, Linkedin, Download, Camera, Code2, Smartphone } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { ArrowRight, Github, Linkedin, Download, Camera, Code2, Smartphone, Monitor } from 'lucide-react'
 import { siteConfig, stats } from '@/lib/data'
+
+const roles = [
+  { label: 'Photographer', icon: Camera, color: 'text-gold-500', border: 'border-gold-500/40', bg: 'bg-gold-500/10' },
+  { label: 'Web Dev', icon: Code2, color: 'text-accent-300', border: 'border-accent-400/40', bg: 'bg-accent-400/10' },
+  { label: 'Mobile Dev', icon: Smartphone, color: 'text-purple-400', border: 'border-purple-500/40', bg: 'bg-purple-500/10' },
+  { label: 'Desktop Dev', icon: Monitor, color: 'text-teal-400', border: 'border-teal-500/40', bg: 'bg-teal-500/10' },
+]
+
+function TypingBadge() {
+  const [roleIndex, setRoleIndex] = useState(0)
+  const [displayed, setDisplayed] = useState('')
+  const [phase, setPhase] = useState<'typing' | 'pause' | 'erasing'>('typing')
+
+  useEffect(() => {
+    const current = roles[roleIndex].label
+    let timeout: ReturnType<typeof setTimeout>
+
+    if (phase === 'typing') {
+      if (displayed.length < current.length) {
+        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 90)
+      } else {
+        timeout = setTimeout(() => setPhase('pause'), 1400)
+      }
+    } else if (phase === 'pause') {
+      timeout = setTimeout(() => setPhase('erasing'), 400)
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 55)
+      } else {
+        setRoleIndex((i) => (i + 1) % roles.length)
+        setPhase('typing')
+      }
+    }
+
+    return () => clearTimeout(timeout)
+  }, [displayed, phase, roleIndex])
+
+  const role = roles[roleIndex]
+  const Icon = role.icon
+
+  return (
+    <div
+      className={`
+        absolute -bottom-5 -left-7 z-10
+        flex items-center gap-2.5
+        px-4 py-2.5 rounded-xl
+        bg-navy-800/95 backdrop-blur-sm shadow-xl
+        border ${role.border}
+        transition-colors duration-500
+      `}
+    >
+      <div className={`w-7 h-7 rounded-lg ${role.bg} flex items-center justify-center flex-shrink-0 transition-colors duration-500`}>
+        <Icon size={14} className={`${role.color} transition-colors duration-500`} />
+      </div>
+      <span className="text-xs font-semibold text-white min-w-[88px]">
+        {displayed}
+        <span className="inline-block w-0.5 h-3.5 bg-white ml-0.5 align-middle animate-pulse" />
+      </span>
+    </div>
+  )
+}
 
 export function HeroSection() {
   return (
@@ -41,7 +105,7 @@ export function HeroSection() {
                 <Smartphone size={11} className="text-accent-400" /> Mobile
               </span>
               <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
-                <Code2 size={11} className="text-accent-400" /> Desktop
+                <Monitor size={11} className="text-accent-400" /> Desktop
               </span>
               <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
                 <Camera size={11} className="text-gold-500" /> Photographer
@@ -77,14 +141,13 @@ export function HeroSection() {
           </div>
 
           {/* RIGHT: photo + stats */}
-          <div className="relative hidden lg:flex flex-col items-center gap-8">
+          <div className="relative hidden lg:flex flex-col items-center gap-10">
 
-            {/* Photo card */}
             <div className="relative">
-              {/* Glow ring behind photo */}
+              {/* Glow ring */}
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-accent-400/40 via-transparent to-accent-400/10 blur-sm" />
 
-              {/* Photo */}
+              {/* Photo frame */}
               <div className="relative w-72 h-80 rounded-2xl overflow-hidden border border-white/12 shadow-[0_32px_80px_rgba(0,0,0,0.5)]">
                 <Image
                   src="/sachitha.png"
@@ -97,24 +160,19 @@ export function HeroSection() {
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-navy-900/60 to-transparent" />
               </div>
 
-              {/* Floating badge — bottom left */}
-              <div className="absolute -bottom-4 -left-6 bg-navy-800/95 border border-gold-500/30 rounded-xl px-4 py-2.5 backdrop-blur-sm shadow-lg">
-                <div className="flex items-center gap-2">
-                  <Camera size={13} className="text-gold-500" />
-                  <span className="text-xs font-medium text-white">Photographer</span>
-                </div>
-              </div>
+              {/* Typing badge — bottom left */}
+              <TypingBadge />
 
-              {/* Floating badge — top right */}
-              <div className="absolute -top-4 -right-6 bg-navy-800/95 border border-green-500/30 rounded-xl px-4 py-2.5 backdrop-blur-sm shadow-lg">
+              {/* Available badge — top right (static) */}
+              <div className="absolute -top-4 -right-6 z-10 bg-navy-800/95 border border-green-500/30 rounded-xl px-4 py-2.5 backdrop-blur-sm shadow-lg">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-xs font-medium text-white">Available</span>
+                  <span className="text-xs font-semibold text-white">Available</span>
                 </div>
               </div>
             </div>
 
-            {/* Stats below photo */}
+            {/* Stats */}
             <div className="grid grid-cols-4 gap-3 w-full max-w-sm">
               {stats.map((stat) => (
                 <div
