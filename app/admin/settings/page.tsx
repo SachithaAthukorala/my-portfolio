@@ -13,6 +13,10 @@ export default function AdminSettingsPage() {
     loadData().then(setD)
   }, [])
 
+  if (!d) {
+    return <div style={{ padding: '20px', color: '#9aabc5' }}>Loading...</div>
+  }
+
   function cfg(key: string, val: string) {
     setD(p => ({ ...p, siteConfig: { ...p.siteConfig, [key]: val } }))
   }

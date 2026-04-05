@@ -13,6 +13,10 @@ export default function AdminAboutPage() {
     loadData().then(setD)
   }, [])
 
+  if (!d) {
+    return <div style={{ padding: '20px', color: '#9aabc5' }}>Loading...</div>
+  }
+
   async function save() {
     setSaving(true)
     try {

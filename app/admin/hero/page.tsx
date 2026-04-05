@@ -46,6 +46,10 @@ export default function AdminHeroPage() {
 
   const s = d?.siteConfig || {}
 
+  if (!d) {
+    return <div style={{ padding: '20px', color: '#9aabc5' }}>Loading...</div>
+  }
+
   return (
     <div>
       <PageHeader title="Hero Section" desc="Edit the main landing section of your portfolio." action={<SaveBtn onClick={save} saving={saving} />} />
