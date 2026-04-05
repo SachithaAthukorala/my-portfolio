@@ -2,7 +2,7 @@
   "siteConfig": {
     "name": "Sachitha Athukorala",
     "role": "Full-Stack Developer & Photographer",
-    "tagline": "I craft high-performance applications across web, mobile & desktop — with a creative eye behind the lens.",
+    "tagline": "I craft high-performance applications across web, mobile & desktop with a creative eye behind the lens.",
     "email": "sachitha@example.com",
     "location": "Anuradhapura, Sri Lanka",
     "available": true,
@@ -14,41 +14,101 @@
     }
   },
   "stats": [
-    { "value": "5+", "label": "Years Experience" },
-    { "value": "40+", "label": "Projects Shipped" },
-    { "value": "3", "label": "Platforms Mastered" },
-    { "value": "15+", "label": "Happy Clients" }
+    {
+      "value": "5+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "40+",
+      "label": "Projects Shipped"
+    },
+    {
+      "value": "3",
+      "label": "Platforms Mastered"
+    },
+    {
+      "value": "15+",
+      "label": "Happy Clients"
+    }
   ],
   "skills": [
     {
       "category": "Frontend / Web",
       "color": "accent",
-      "items": ["React", "Next.js", "Vue 3", "TypeScript", "Tailwind CSS", "Framer Motion", "GraphQL", "Vite"]
+      "items": [
+        "React",
+        "Next.js",
+        "Vue 3",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "GraphQL",
+        "Vite"
+      ]
     },
     {
       "category": "Mobile",
       "color": "teal",
-      "items": ["Flutter", "Dart", "React Native", "Swift (iOS)", "Kotlin (Android)", "Expo", "Firebase"]
+      "items": [
+        "Flutter",
+        "Dart",
+        "React Native",
+        "Swift (iOS)",
+        "Kotlin (Android)",
+        "Expo",
+        "Firebase"
+      ]
     },
     {
       "category": "Desktop",
       "color": "gold",
-      "items": ["Electron", "Tauri", "C# / .NET", "WPF", "Qt", "Rust"]
+      "items": [
+        "Electron",
+        "Tauri",
+        "C# / .NET",
+        "WPF",
+        "Qt",
+        "Rust"
+      ]
     },
     {
       "category": "Backend & APIs",
       "color": "purple",
-      "items": ["Node.js", "Python", "Express", "FastAPI", "NestJS", "REST", "WebSocket", "gRPC"]
+      "items": [
+        "Node.js",
+        "Python",
+        "Express",
+        "FastAPI",
+        "NestJS",
+        "REST",
+        "WebSocket",
+        "gRPC"
+      ]
     },
     {
       "category": "Databases",
       "color": "green",
-      "items": ["PostgreSQL", "MongoDB", "Redis", "MySQL", "Prisma", "Supabase"]
+      "items": [
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "MySQL",
+        "Prisma",
+        "Supabase"
+      ]
     },
     {
       "category": "Cloud & DevOps",
       "color": "orange",
-      "items": ["AWS", "Docker", "GitHub Actions", "Vercel", "Nginx", "Linux", "Terraform"]
+      "items": [
+        "AWS",
+        "Docker",
+        "GitHub Actions",
+        "Vercel",
+        "Nginx",
+        "Linux",
+        "Terraform"
+      ]
     }
   ],
   "experiences": [
@@ -57,28 +117,55 @@
       "company": "Freelance / Contract",
       "period": "2022 — Present",
       "description": "Building bespoke web, mobile, and desktop applications for international clients across healthcare, fintech, and e-commerce. Led end-to-end delivery of 15+ projects.",
-      "achievements": ["Delivered telemedicine platform serving 1,000+ consultations/quarter", "Reduced client app load time by 75% via SSG + CDN optimization", "Built cross-platform IoT dashboard used in 3 manufacturing plants"]
+      "achievements": [
+        "Delivered telemedicine platform serving 1,000+ consultations/quarter",
+        "Reduced client app load time by 75% via SSG + CDN optimization",
+        "Built cross-platform IoT dashboard used in 3 manufacturing plants"
+      ]
     },
     {
       "role": "Software Engineer",
       "company": "Techvault — Colombo",
       "period": "2020 — 2022",
       "description": "Core engineer on a B2B SaaS platform. Led frontend migration from jQuery to React and introduced TypeScript across the codebase.",
-      "achievements": ["Grew platform from 500 to 5,000+ active users", "Improved API response times by 60% through Redis caching", "Mentored 2 junior developers"]
+      "achievements": [
+        "Grew platform from 500 to 5,000+ active users",
+        "Improved API response times by 60% through Redis caching",
+        "Mentored 2 junior developers"
+      ]
     },
     {
       "role": "Junior Web Developer",
       "company": "PixelForge Agency",
       "period": "2019 — 2020",
       "description": "Built client websites and e-commerce stores. Gained foundation in responsive design, SEO best practices, and agile workflows.",
-      "achievements": ["Delivered 12 client projects on schedule", "Introduced automated testing, reducing QA time by 30%"]
+      "achievements": [
+        "Delivered 12 client projects on schedule",
+        "Introduced automated testing, reducing QA time by 30%"
+      ]
     }
   ],
   "certifications": [
-    { "name": "AWS Certified Developer – Associate", "issuer": "Amazon Web Services", "year": "2023" },
-    { "name": "Google Professional Cloud Developer", "issuer": "Google Cloud", "year": "2022" },
-    { "name": "Flutter Developer Certificate", "issuer": "Google", "year": "2021" },
-    { "name": "Adobe Lightroom Professional", "issuer": "Adobe", "year": "2020" }
+    {
+      "name": "AWS Certified Developer – Associate",
+      "issuer": "Amazon Web Services",
+      "year": "2023"
+    },
+    {
+      "name": "Google Professional Cloud Developer",
+      "issuer": "Google Cloud",
+      "year": "2022"
+    },
+    {
+      "name": "Flutter Developer Certificate",
+      "issuer": "Google",
+      "year": "2021"
+    },
+    {
+      "name": "Adobe Lightroom Professional",
+      "issuer": "Adobe",
+      "year": "2020"
+    }
   ],
   "projects": [
     {
@@ -93,14 +180,34 @@
         "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80",
         "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=1200&q=80"
       ],
-      "stack": ["Next.js", "Node.js", "WebRTC", "AWS", "MongoDB", "Tailwind CSS", "Socket.io"],
+      "stack": [
+        "Next.js",
+        "Node.js",
+        "WebRTC",
+        "AWS",
+        "MongoDB",
+        "Tailwind CSS",
+        "Socket.io"
+      ],
       "platform": "web",
       "featured": true,
       "metrics": [
-        { "value": "1,200+", "label": "Consultations/Quarter" },
-        { "value": "4.8/5", "label": "User Rating" },
-        { "value": "−40%", "label": "Patient Wait Time" },
-        { "value": "3 months", "label": "Time to Launch" }
+        {
+          "value": "1,200+",
+          "label": "Consultations/Quarter"
+        },
+        {
+          "value": "4.8/5",
+          "label": "User Rating"
+        },
+        {
+          "value": "−40%",
+          "label": "Patient Wait Time"
+        },
+        {
+          "value": "3 months",
+          "label": "Time to Launch"
+        }
       ],
       "problem": "Local clinics needed a HIPAA-compliant way to offer remote consultations during and after the pandemic, without purchasing expensive off-the-shelf software with features they didn't need.",
       "approach": "Built a bespoke Next.js frontend with server-side rendering for fast load times. Implemented peer-to-peer video via WebRTC with a TURN server fallback for poor network conditions. Designed an intuitive scheduling flow and integrated AWS S3 for encrypted document storage.",
@@ -121,14 +228,34 @@
         "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&q=80",
         "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&q=80"
       ],
-      "stack": ["Flutter", "Dart", "Node.js", "PostgreSQL", "Plaid API", "Docker", "Redis"],
+      "stack": [
+        "Flutter",
+        "Dart",
+        "Node.js",
+        "PostgreSQL",
+        "Plaid API",
+        "Docker",
+        "Redis"
+      ],
       "platform": "mobile",
       "featured": true,
       "metrics": [
-        { "value": "10K+", "label": "Downloads" },
-        { "value": "+50%", "label": "Avg. Session Time" },
-        { "value": "−15%", "label": "User Expenses" },
-        { "value": "4.6★", "label": "App Store Rating" }
+        {
+          "value": "10K+",
+          "label": "Downloads"
+        },
+        {
+          "value": "+50%",
+          "label": "Avg. Session Time"
+        },
+        {
+          "value": "−15%",
+          "label": "User Expenses"
+        },
+        {
+          "value": "4.6★",
+          "label": "App Store Rating"
+        }
       ],
       "problem": "Young professionals wanted a cleaner, more insightful alternative to spreadsheets for tracking spending — one that synced automatically and gave actionable advice, not just raw numbers.",
       "approach": "Chose Flutter for a single codebase targeting iOS and Android. Integrated Plaid for secure bank linking. Built a custom ML model (Python/FastAPI) to categorize transactions. Used fl_chart for beautiful native visualisations.",
@@ -149,14 +276,34 @@
         "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=1200&q=80",
         "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80"
       ],
-      "stack": ["Next.js", "GraphQL", "MongoDB Atlas", "Stripe", "AWS S3", "SendGrid", "Vercel"],
+      "stack": [
+        "Next.js",
+        "GraphQL",
+        "MongoDB Atlas",
+        "Stripe",
+        "AWS S3",
+        "SendGrid",
+        "Vercel"
+      ],
       "platform": "web",
       "featured": true,
       "metrics": [
-        { "value": "2,500", "label": "Students Enrolled" },
-        { "value": "+20%", "label": "Completion Rate vs. Industry" },
-        { "value": "5", "label": "Courses Launched" },
-        { "value": "$120K", "label": "Revenue in Year 1" }
+        {
+          "value": "2,500",
+          "label": "Students Enrolled"
+        },
+        {
+          "value": "+20%",
+          "label": "Completion Rate vs. Industry"
+        },
+        {
+          "value": "5",
+          "label": "Courses Launched"
+        },
+        {
+          "value": "$120K",
+          "label": "Revenue in Year 1"
+        }
       ],
       "problem": "An education startup wanted a custom platform to offer live and recorded classes with quizzes and payments — without the high licensing fees and feature bloat of Teachable or Thinkific.",
       "approach": "Built with Next.js App Router for SSG course pages and dynamic dashboard. GraphQL with DataLoader for efficient nested queries. Stripe for subscription and one-time purchases. PDF certificate generation with Puppeteer on AWS Lambda.",
@@ -177,14 +324,34 @@
         "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80",
         "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&q=80"
       ],
-      "stack": ["Gatsby", "React", "GraphQL", "Shopify Storefront API", "Stripe", "Cloudinary", "Netlify"],
+      "stack": [
+        "Gatsby",
+        "React",
+        "GraphQL",
+        "Shopify Storefront API",
+        "Stripe",
+        "Cloudinary",
+        "Netlify"
+      ],
       "platform": "web",
       "featured": false,
       "metrics": [
-        { "value": "8s→1.8s", "label": "Page Load Time" },
-        { "value": "+30%", "label": "Conversion Rate" },
-        { "value": "+20%", "label": "Revenue (6 months)" },
-        { "value": "2×", "label": "Mobile Purchases" }
+        {
+          "value": "8s→1.8s",
+          "label": "Page Load Time"
+        },
+        {
+          "value": "+30%",
+          "label": "Conversion Rate"
+        },
+        {
+          "value": "+20%",
+          "label": "Revenue (6 months)"
+        },
+        {
+          "value": "2×",
+          "label": "Mobile Purchases"
+        }
       ],
       "problem": "The retailer's existing WooCommerce site loaded in 8+ seconds on mobile, had a confusing 4-step checkout, and scored 28/100 on Lighthouse. High bounce rate was costing significant revenue.",
       "approach": "Migrated to headless Shopify for the backend. Built a Gatsby frontend with SSG for all product/collection pages. Redesigned checkout as a single-page flow. Implemented Cloudinary for automatic image optimization and responsive delivery.",
@@ -203,14 +370,34 @@
       "images": [
         "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80"
       ],
-      "stack": ["React Native", "GPT-4 API", "Node.js", "Firebase", "MongoDB", "WebSocket", "Azure"],
+      "stack": [
+        "React Native",
+        "GPT-4 API",
+        "Node.js",
+        "Firebase",
+        "MongoDB",
+        "WebSocket",
+        "Azure"
+      ],
       "platform": "fullstack",
       "featured": false,
       "metrics": [
-        { "value": "70%", "label": "Queries Auto-Resolved" },
-        { "value": "1hr→1min", "label": "Response Time" },
-        { "value": "24/7", "label": "Coverage" },
-        { "value": "−60%", "label": "Support Costs" }
+        {
+          "value": "70%",
+          "label": "Queries Auto-Resolved"
+        },
+        {
+          "value": "1hr→1min",
+          "label": "Response Time"
+        },
+        {
+          "value": "24/7",
+          "label": "Coverage"
+        },
+        {
+          "value": "−60%",
+          "label": "Support Costs"
+        }
       ],
       "problem": "A SaaS company's support team was overwhelmed with repetitive FAQs. Average response time was over 1 hour. They needed intelligent triage without losing the human touch for complex issues.",
       "approach": "Built a custom RAG (retrieval-augmented generation) pipeline ingesting the company's knowledge base. Fine-tuned prompt engineering for brand voice. Built a real-time handoff system using WebSockets — bot → human agent — with full chat context preserved.",
@@ -229,14 +416,36 @@
       "images": [
         "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=1200&q=80"
       ],
-      "stack": ["Electron", "React", "Next.js", "Python", "Flask", "MQTT", "PostgreSQL", "Chart.js", "Docker"],
+      "stack": [
+        "Electron",
+        "React",
+        "Next.js",
+        "Python",
+        "Flask",
+        "MQTT",
+        "PostgreSQL",
+        "Chart.js",
+        "Docker"
+      ],
       "platform": "desktop",
       "featured": false,
       "metrics": [
-        { "value": "−25%", "label": "Unscheduled Downtime" },
-        { "value": "−10%", "label": "Energy Costs" },
-        { "value": "200+", "label": "Sensors Monitored" },
-        { "value": "3 plants", "label": "Deployed Across" }
+        {
+          "value": "−25%",
+          "label": "Unscheduled Downtime"
+        },
+        {
+          "value": "−10%",
+          "label": "Energy Costs"
+        },
+        {
+          "value": "200+",
+          "label": "Sensors Monitored"
+        },
+        {
+          "value": "3 plants",
+          "label": "Deployed Across"
+        }
       ],
       "problem": "Plant managers had no centralized visibility across 200+ IoT sensors. Maintenance was purely reactive. Downtime cost the company $15,000 per unscheduled incident.",
       "approach": "Python/Flask backend aggregated sensor data via MQTT broker. Electron desktop app (React frontend) displayed live charts with Chart.js. Built an anomaly detection model (scikit-learn) that triggered alerts 30 minutes before predicted failures.",
@@ -251,7 +460,13 @@
       "excerpt": "A deep dive into adding live collaboration features to a Next.js App Router project — from Socket.io setup to scaling with Redis pub/sub.",
       "content": "## The Problem with Polling\n\nWhen I started the MediConnect telemedicine project, the first question was: how do we handle real-time appointment status updates without hammering the server with HTTP polling?\n\nThe answer, as it usually is, was WebSockets. But integrating them cleanly with Next.js App Router requires some nuance.\n\n## Setting Up Socket.io with Next.js App Router\n\nThe App Router doesn't have a built-in WebSocket server, so we need to attach one to the underlying Node.js HTTP server. Here's the pattern I settled on:\n\n```typescript\n// server.ts (custom Next.js server)\nimport { createServer } from 'http'\nimport { parse } from 'url'\nimport next from 'next'\nimport { Server } from 'socket.io'\n\nconst dev = process.env.NODE_ENV !== 'production'\nconst app = next({ dev })\nconst handle = app.getRequestHandler()\n\napp.prepare().then(() => {\n  const httpServer = createServer((req, res) => {\n    const parsedUrl = parse(req.url!, true)\n    handle(req, res, parsedUrl)\n  })\n\n  const io = new Server(httpServer, {\n    cors: { origin: process.env.NEXT_PUBLIC_URL }\n  })\n\n  io.on('connection', (socket) => {\n    socket.on('join-room', (roomId: string) => {\n      socket.join(roomId)\n    })\n    socket.on('appointment-update', (data) => {\n      io.to(data.roomId).emit('status-changed', data)\n    })\n  })\n\n  httpServer.listen(3000)\n})\n```\n\n## Scaling with Redis Pub/Sub\n\nWhen you run multiple instances (which you will in production), each Socket.io instance only knows about its own connected clients. Enter Redis adapter:\n\n```typescript\nimport { createAdapter } from '@socket.io/redis-adapter'\nimport { createClient } from 'redis'\n\nconst pubClient = createClient({ url: process.env.REDIS_URL })\nconst subClient = pubClient.duplicate()\n\nawait Promise.all([pubClient.connect(), subClient.connect()])\nio.adapter(createAdapter(pubClient, subClient))\n```\n\n## Client-Side Hook\n\nI wrapped all the Socket.io logic in a clean React hook:\n\n```typescript\nexport function useRealtimeAppointment(appointmentId: string) {\n  const [status, setStatus] = useState<string>('pending')\n  \n  useEffect(() => {\n    const socket = io()\n    socket.emit('join-room', appointmentId)\n    socket.on('status-changed', (data) => setStatus(data.status))\n    return () => { socket.disconnect() }\n  }, [appointmentId])\n\n  return status\n}\n```\n\n## Lessons Learned\n\n1. **Always handle reconnection** — use Socket.io's built-in reconnection with exponential backoff\n2. **Authenticate at the socket level** — validate JWT in the `connection` event, not just HTTP middleware\n3. **Emit sparingly** — batch updates and debounce rapid events (like typing indicators) to avoid flooding\n4. **Test with Cypress** — real WebSocket testing in E2E is worth the setup time\n\nThe full source for this pattern is in my [GitHub repo](#).",
       "category": "Backend",
-      "tags": ["Next.js", "WebSockets", "Socket.io", "Redis", "Real-Time"],
+      "tags": [
+        "Next.js",
+        "WebSockets",
+        "Socket.io",
+        "Redis",
+        "Real-Time"
+      ],
       "publishedAt": "2024-03-12",
       "readingTime": 8,
       "featured": true,
@@ -263,7 +478,13 @@
       "excerpt": "After shipping production apps in both frameworks, here's my unfiltered take on which to choose — and when to choose each.",
       "content": "## Why This Comparison Matters Now\n\nI've shipped FinTrack in Flutter and AuxBot's mobile client in React Native. Both are in production. Both have real users. That gives me a perspective most \"vs\" articles don't have.\n\n## Performance\n\nFlutter wins, hands down. Its Skia (now Impeller) rendering engine bypasses native UI components entirely — which means consistent 60fps even on mid-range Android devices. React Native's new architecture (JSI + Fabric) has closed the gap significantly, but Flutter still leads for animation-heavy UIs.\n\nOn FinTrack, the spending graph animations are silky smooth on a $150 Android device. I couldn't say the same for the React Native prototype I built first.\n\n## Developer Experience\n\nReact Native wins for web developers making the mobile transition. If your team knows React, they're 80% of the way there. Expo has also dramatically improved the DX — `npx create-expo-app` and you're running in 2 minutes.\n\nDart (Flutter's language) is excellent, but it's a learning curve. The upside: Dart's strong typing and null safety catch bugs at compile time that would bite you at runtime in JavaScript.\n\n## Ecosystem & Libraries\n\n**React Native:** Larger ecosystem. More packages. More Stack Overflow answers. Most third-party SDKs ship a React Native version first (or exclusively).\n\n**Flutter:** Smaller but high-quality. pub.dev packages are typically well-maintained. The Flutter team's own packages (go_router, riverpod, etc.) are excellent. But you'll occasionally hit a native feature with no package — meaning platform channels and some Kotlin/Swift.\n\n## My Rule of Thumb\n\n| Scenario | My Pick |\n|---|---|\n| Team already knows React | React Native |\n| Animation/graphics-heavy app | Flutter |\n| Targeting low-end Android devices | Flutter |\n| Tight deadline, web dev team | React Native (Expo) |\n| Long-term maintainability | Flutter |\n| Startup MVP | React Native |\n\n## The Honest Answer\n\nFor my own projects, I default to Flutter now. The performance headroom and Dart's safety guarantees make production support much easier. But I understand why teams choose React Native — and with the New Architecture, it's genuinely competitive in 2024.\n\nPick based on your team's strengths, not internet benchmarks.",
       "category": "Mobile",
-      "tags": ["Flutter", "React Native", "Mobile", "Dart", "Cross-Platform"],
+      "tags": [
+        "Flutter",
+        "React Native",
+        "Mobile",
+        "Dart",
+        "Cross-Platform"
+      ],
       "publishedAt": "2024-02-05",
       "readingTime": 10,
       "featured": true,
@@ -275,7 +496,12 @@
       "excerpt": "Photography's rule of thirds, leading lines, and negative space are design principles that translate directly to building better interfaces.",
       "content": "## An Unexpected Crossover\n\nWhen I picked up a camera seriously a few years ago, I didn't expect it to make me a better developer. But the visual language of photography — learned by shooting hundreds of frames and studying what worked — changed how I think about interface design.\n\n## Rule of Thirds → Grid Systems\n\nThe rule of thirds divides your frame into a 3×3 grid. The strongest compositions place subjects at the intersections of those lines, not dead center. Sound familiar? It should — it's the same principle behind CSS grid systems and the 8-point spacing system.\n\nWhen I design a landing page now, I mentally overlay a rule-of-thirds grid. The hero headline usually lands at the top-left intersection. The CTA at the bottom-right. It creates visual movement — the eye travels naturally from headline to supporting copy to action.\n\n## Leading Lines → Visual Hierarchy\n\nIn landscape photography, leading lines (a road, a river, a fence) guide the viewer's eye to the subject. In UI, visual hierarchy does the same work: font size, weight, and spacing create a \"path\" through the content.\n\nMy test for any page I design: squint at it. Can you tell, without reading a word, where the eye should go first? Second? Third? If not, the hierarchy is broken.\n\n## Negative Space → Breathing Room\n\nBeginning photographers fill the frame. Experienced ones know that empty space is active — it gives the subject room to breathe and creates elegance. The same principle destroys cluttered UIs.\n\nWhen I find myself cramming more content into a section, I ask: what would I remove if I had to? The answer is usually what should have been removed anyway.\n\n## Shoot More. It'll Make You a Better Designer.\n\nI'm not suggesting every developer needs to become a photographer. But the practice of composing thousands of shots — and immediately seeing the result — trains your eye faster than reading design theory.\n\nGo take 100 photos of the same object. Edit them. Notice what makes some work and others fail. It'll change how you look at screens.",
       "category": "Design",
-      "tags": ["Photography", "UI Design", "Composition", "Creative Process"],
+      "tags": [
+        "Photography",
+        "UI Design",
+        "Composition",
+        "Creative Process"
+      ],
       "publishedAt": "2024-01-18",
       "readingTime": 6,
       "featured": false,
@@ -287,7 +513,13 @@
       "excerpt": "Why I chose Electron over Tauri for an industrial IoT dashboard, and what I'd do differently today.",
       "content": "## The Brief\n\nBuild a desktop app for plant managers — Windows primarily, with some macOS. Real-time charts from 200+ sensors. Runs on an intranet, no internet required. Must work offline.\n\n## Why Desktop at All?\n\nFair question in 2024. The answer was twofold: the plant's network security policy blocked web apps on production floor terminals, and the client needed native OS notification integration for critical alerts (machine fault, temperature spike).\n\n## Electron: The Conservative Choice\n\nI went with Electron. Here's the honest reasoning: the team knew React, the timeline was tight, and Electron's maturity meant every problem I'd hit had a StackOverflow answer.\n\nThe bundle size (120MB) didn't matter — this isn't a consumer app. The memory footprint (~180MB idle) was fine on the industrial PCs (16GB RAM). Performance was acceptable because Chart.js handles the heavy lifting efficiently.\n\nWhat I'd change: I embedded too much business logic in the renderer process. Everything that doesn't touch the UI should be in the main process or a Node.js worker. Lesson learned.\n\n## Tauri: What I'd Choose Today\n\nFor FactoryLens v2 (in planning), I'm strongly considering Tauri. The reasons:\n\n- **Bundle size:** 8MB vs 120MB — matters for USB deployment in air-gapped environments\n- **Memory:** ~30MB idle vs 180MB — meaningful on older industrial hardware\n- **Security:** Tauri's Rust backend has a much smaller attack surface than Node.js in Electron\n- **Performance:** Rust for data processing (MQTT parsing, anomaly detection) would be significantly faster\n\nThe tradeoff is the Rust learning curve for the team and a smaller ecosystem. But Tauri's maturity in 2024 makes it a serious option that it wasn't in 2022.\n\n## Quick Comparison\n\n| Factor | Electron | Tauri |\n|---|---|---|\n| Bundle size | ~120MB | ~8MB |\n| Memory (idle) | ~180MB | ~30MB |\n| Backend language | Node.js | Rust |\n| Ecosystem | Mature | Growing |\n| Learning curve | Low (if you know Node) | Higher (Rust) |\n| Security posture | Good | Excellent |\n\n## The Verdict\n\nElectron for speed-to-market and team familiarity. Tauri for performance-sensitive apps or when bundle size matters. Both are genuinely good choices in 2024 — the \"Electron is bloated\" criticism is valid but often overstated for non-consumer applications.",
       "category": "Desktop",
-      "tags": ["Electron", "Tauri", "Desktop", "Rust", "IoT"],
+      "tags": [
+        "Electron",
+        "Tauri",
+        "Desktop",
+        "Rust",
+        "IoT"
+      ],
       "publishedAt": "2023-11-30",
       "readingTime": 9,
       "featured": false,
@@ -299,7 +531,13 @@
       "excerpt": "The specific techniques that pushed every category to 100 — and the CI check that keeps it there.",
       "content": "## The Goal\n\nA perfect Lighthouse score isn't a vanity metric — it's a forcing function for every web performance and accessibility best practice. Getting there, and keeping it, requires discipline.\n\nHere's exactly what I did on the LearnFlow LMS marketing site.\n\n## Performance: The Usual Suspects\n\n**Images** are always the first culprit. Using `next/image` gets you 80% of the way there — automatic WebP/AVIF conversion, responsive `srcset`, lazy loading by default. The remaining 20% is:\n\n- Set `priority` on the hero image (prevents LCP from being a lazy-loaded image)\n- Specify explicit `width` and `height` to eliminate CLS\n- Use `sizes` prop correctly: `sizes=\"(max-width: 768px) 100vw, 50vw\"`\n\n**Fonts** are the second culprit. Always use `next/font` — it downloads fonts at build time, serves them from your domain, and adds `font-display: swap` automatically:\n\n```typescript\nimport { DM_Sans, DM_Serif_Display } from 'next/font/google'\n\nconst dmSans = DM_Sans({ subsets: ['latin'], display: 'swap' })\nconst dmSerif = DM_Serif_Display({ weight: '400', subsets: ['latin'] })\n```\n\n**JavaScript** — audit your bundle with `@next/bundle-analyzer`. I found a date library (moment.js, 72KB gzipped) I could replace with `date-fns` tree-shaking (2KB for the functions I used).\n\n## Accessibility: The Checklist\n\n- Every image: descriptive `alt` text (not \"image\" or the filename)\n- Every form input: `<label>` with matching `htmlFor` / `id`\n- Color contrast: 4.5:1 minimum for body text (I use the Accessible Colors tool)\n- Heading order: one `h1`, then `h2`, `h3` — never skip levels\n- Focus rings: `outline-none` without a replacement is an accessibility bug\n\n## Keeping It at 100 with CI\n\nThis is the part most tutorials skip. A Lighthouse score without automated enforcement decays within weeks. My GitHub Actions workflow:\n\n```yaml\n- name: Lighthouse CI\n  uses: treosh/lighthouse-ci-action@v11\n  with:\n    urls: |\n      https://staging.learnflow.dev/\n      https://staging.learnflow.dev/courses\n    budgetPath: ./budget.json\n    uploadArtifacts: true\n```\n\nThe `budget.json` fails the build if any score drops below 95. It's caught regressions from third-party script additions, un-optimised images committed by mistake, and a mis-sized heading added during a quick fix.\n\nAutomate the checks. They're the only thing that keeps scores honest.",
       "category": "Performance",
-      "tags": ["Next.js", "Lighthouse", "Performance", "Accessibility", "CI/CD"],
+      "tags": [
+        "Next.js",
+        "Lighthouse",
+        "Performance",
+        "Accessibility",
+        "CI/CD"
+      ],
       "publishedAt": "2023-10-14",
       "readingTime": 7,
       "featured": false,
