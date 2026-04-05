@@ -1,7 +1,6 @@
-import { readFile, writeFile } from 'fs/promises'
-import { join } from 'path'
 import { cookies } from 'next/headers'
-import { execSync } from 'child_process'
+import { connectDB } from '@/lib/mongodb'
+import SiteDataModel from '@/lib/dbModel'
 
 export async function POST(request: Request) {
   try {
@@ -19,36 +18,30 @@ export async function POST(request: Request) {
     // Parse incoming data
     const body = await request.json()
 
-    // Read current data
-    const filePath = join(process.cwd(), 'public', 'data.json')
-    const currentData = JSON.parse(await readFile(filePath, 'utf-8'))
-
-    // Merge new data
-    const merged = { ...currentData, ...body }
-
-    // Write back to file
-    await writeFile(filePath, JSON.stringify(merged, null, 2))
-
-    // Auto-commit to git
-    try {
-      execSync('git add public/data.json', { cwd: process.cwd() })
-      execSync(
-        `git commit -m "Update portfolio data: ${new Date().toISOString()}"`,
-        { cwd: process.cwd() }
-      )
-    } catch (gitError) {
-      console.warn('Git commit failed (non-critical):', gitError)
-      // Don't fail the API response if git commit fails
-    }
+    // Save to MongoDB
+    await connectDB()
+    
+    // Find existing doc or create new one
+    const existing = await SiteDataModel.findById('main').lean() || {}
+    
+    // Merge new data with existing data
+    const mergedData = { ...existing, ...body }
+    
+    await SiteDataModel.findByIdAndUpdate(
+      'main', 
+      mergedData, 
+      { upsert: true, new: true, runValidators: true }
+    )
 
     return Response.json({
       success: true,
     })
   } catch (error) {
-    console.error('Error saving data:', error)
+    console.error('Error saving data to MongoDB:', error)
     return Response.json({
       success: false,
       error: 'Failed to save data',
     }, { status: 500 })
   }
 }
+
