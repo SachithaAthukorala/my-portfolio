@@ -74,7 +74,7 @@ export default function AdminHeroPage() {
         <Card>
           <CardTitle>Social Links</CardTitle>
           {(['github', 'linkedin', 'twitter', 'instagram'] as const).map(k => (
-            <Field key={k} label={k.charAt(0).toUpperCase() + k.slice(1)} value={s.socials[k]}
+            <Field key={k} label={k.charAt(0).toUpperCase() + k.slice(1)} value={s.socials?.[k] || ''}
               onChange={v => setD(p => ({ ...p, siteConfig: { ...p.siteConfig, socials: { ...p.siteConfig.socials, [k]: v } } }))}
               placeholder={`https://${k}.com/yourhandle`} />
           ))}
