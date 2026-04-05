@@ -11,14 +11,21 @@ export async function POST() {
     const doc = await SiteDataModel.findById('main').lean()
 
     if (!doc) {
-      // First run — return defaults (will be saved on first admin save)
       return Response.json({ success: true, data: defaults })
     }
 
-    // Strip mongoose internal fields and merge with defaults!
-    // This prevents existing data from disappearing if MongoDB only has a partial save.
     const { _id, __v, createdAt, updatedAt, ...dbData } = doc as any
-    const mergedData = { ...defaults, ...dbData }
+    const mergedData = { ...defaults } as any
+    
+    // Smart merge: if the database has an empty array but our default has data, keep the default data.
+    // This fixes the issue where MongoDB saving an empty `blogPosts: []` overrides the default blogs.
+    for (const key of Object.keys(dbData)) {
+      if (Array.isArray(dbData[key]) && dbData[key].length === 0 && Array.isArray(defaults[key as keyof typeof defaults]) && (defaults[key as keyof typeof defaults] as any[]).length > 0) {
+        // Keep default
+        continue
+      }
+      mergedData[key] = dbData[key]
+    }
     
     return Response.json({ success: true, data: mergedData })
   } catch (error) {
