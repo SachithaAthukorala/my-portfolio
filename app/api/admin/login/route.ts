@@ -35,17 +35,34 @@ export async function POST(req: NextRequest) {
 
   await connectDB()
 
-  // ── Seed admin on first run ──────────────────────────────────────────────
+  // ── Seed / sync admin credentials ───────────────────────────────────────
+  // If ADMIN_PASSWORD env var is set, always keep MongoDB in sync with it.
+  // This means changing ADMIN_PASSWORD (locally or on Vercel) takes effect
+  // on the very next login attempt.
   let admin = await AdminUser.findOne({ username: 'admin' })
-  if (!admin) {
-    if (!seedPassword) {
-      return NextResponse.json(
-        { success: false, error: 'No admin account exists yet. Set ADMIN_PASSWORD env var.' },
-        { status: 500 }
-      )
+
+  if (seedPassword) {
+    const currentHashMatches = admin
+      ? await bcrypt.compare(seedPassword, admin.passwordHash)
+      : false
+
+    if (!admin) {
+      // First run — create the admin record
+      const hash = await bcrypt.hash(seedPassword, 12)
+      admin = await AdminUser.create({ username: 'admin', passwordHash: hash })
+    } else if (!currentHashMatches) {
+      // Password was changed in env var — update the stored hash
+      const hash = await bcrypt.hash(seedPassword, 12)
+      admin.passwordHash = hash
+      await admin.save()
     }
-    const hash = await bcrypt.hash(seedPassword, 12)
-    admin = await AdminUser.create({ username: 'admin', passwordHash: hash })
+  }
+
+  if (!admin) {
+    return NextResponse.json(
+      { success: false, error: 'No admin account exists. Set ADMIN_PASSWORD env var.' },
+      { status: 500 }
+    )
   }
 
   // ── Verify password ─────────────────────────────────────────────────────
