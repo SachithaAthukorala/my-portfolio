@@ -1,26 +1,16 @@
+'use client'
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Clock, Calendar, Tag, ArrowRight } from 'lucide-react'
-import { blogPosts } from '@/lib/data'
+import { useEffect, useState } from 'react'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 import { formatDate } from '@/lib/utils'
-import type { Metadata } from 'next'
 
 interface Props {
   params: { slug: string }
-}
-
-export async function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }))
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = blogPosts.find((p) => p.slug === params.slug)
-  if (!post) return {}
-  return {
-    title: post.title,
-    description: post.excerpt,
-  }
 }
 
 // Minimal markdown-to-HTML renderer (no external deps)
@@ -75,6 +65,17 @@ function renderMarkdown(md: string): string {
 }
 
 export default function BlogPostPage({ params }: Props) {
+  const [data, setData] = useState<SiteData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    loadData().then(setData).finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return <div className="min-h-screen bg-navy-700 flex items-center justify-center"><p className="text-navy-200">Loading...</p></div>
+  if (!data) return notFound()
+
+  const blogPosts = data.blogPosts
   const post = blogPosts.find((p) => p.slug === params.slug)
   if (!post) notFound()
 

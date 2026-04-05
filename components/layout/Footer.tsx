@@ -1,9 +1,22 @@
+'use client'
+
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { Github, Linkedin, Twitter, Instagram, Mail, MapPin } from 'lucide-react'
-import { siteConfig } from '@/lib/data'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 export function Footer() {
+  const [data, setData] = useState<SiteData | null>(null)
   const year = new Date().getFullYear()
+
+  useEffect(() => {
+    loadData().then(setData)
+  }, [])
+
+  const siteConfig = data?.siteConfig
+
+  if (!siteConfig) return null
 
   return (
     <footer className="bg-navy-900 border-t border-white/5">

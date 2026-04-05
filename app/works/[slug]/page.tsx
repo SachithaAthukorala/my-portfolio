@@ -1,28 +1,29 @@
+'use client'
+
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, ExternalLink, Github, Calendar, Layers } from 'lucide-react'
-import { projects } from '@/lib/data'
-import type { Metadata } from 'next'
+import { useEffect, useState } from 'react'
+import { loadData } from '@/lib/store'
+import type { SiteData } from '@/lib/store'
 
 interface Props {
   params: { slug: string }
 }
 
-export async function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = projects.find((p) => p.slug === params.slug)
-  if (!project) return {}
-  return {
-    title: project.title,
-    description: project.summary,
-  }
-}
-
 export default function CaseStudyPage({ params }: Props) {
+  const [data, setData] = useState<SiteData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    loadData().then(setData).finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return <div className="min-h-screen bg-navy-700 flex items-center justify-center"><p className="text-navy-200">Loading...</p></div>
+  if (!data) return notFound()
+
+  const projects = data.projects
   const project = projects.find((p) => p.slug === params.slug)
   if (!project) notFound()
 
