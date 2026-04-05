@@ -18,7 +18,7 @@ export default function AdminSettingsPage() {
   }
 
   function cfg(key: string, val: string) {
-    setD(p => ({ ...p, siteConfig: { ...p.siteConfig, [key]: val } }))
+    setD((p: any) => ({ ...p, siteConfig: { ...p.siteConfig, [key]: val } }))
   }
 
   async function save() {
@@ -66,7 +66,7 @@ export default function AdminSettingsPage() {
           {(['github', 'linkedin', 'twitter', 'instagram'] as const).map(k => (
             <Field key={k} label={k.charAt(0).toUpperCase() + k.slice(1)}
               value={s.socials[k]}
-              onChange={v => setD(p => ({ ...p, siteConfig: { ...p.siteConfig, socials: { ...p.siteConfig.socials, [k]: v } } }))}
+              onChange={v => setD((p: any) => ({ ...p, siteConfig: { ...p.siteConfig, socials: { ...p.siteConfig.socials, [k]: v } } }))}
               placeholder={`https://${k}.com/yourhandle`} />
           ))}
         </Card>

@@ -44,16 +44,16 @@ export default function AdminBlogPage() {
   }
 
   function setPost(i: number, k: keyof BlogPost, v: unknown) {
-    setD(p => { const a = [...p.blogPosts]; a[i] = { ...a[i], [k]: v }; return { ...p, blogPosts: a } })
+    setD((p: any) => { const a = [...p.blogPosts]; a[i] = { ...a[i], [k]: v }; return { ...p, blogPosts: a } })
   }
 
   function addPost() {
-    setD(p => ({ ...p, blogPosts: [...p.blogPosts, emptyPost()] }))
+    setD((p: any) => ({ ...p, blogPosts: [...p.blogPosts, emptyPost()] }))
     setEditing(d.blogPosts.length)
   }
 
   function removePost(i: number) {
-    setD(p => ({ ...p, blogPosts: p.blogPosts.filter((_, j) => j !== i) }))
+    setD((p: any) => ({ ...p, blogPosts: p.blogPosts.filter((_: any, j: number) => j !== i) }))
     if (editing === i) setEditing(null)
   }
 
@@ -64,7 +64,7 @@ export default function AdminBlogPage() {
   }
 
   function removeTag(pi: number, ti: number) {
-    setPost(pi, 'tags', d.blogPosts[pi].tags.filter((_, j) => j !== ti))
+    setPost(pi, 'tags', d.blogPosts[pi].tags.filter((_: any, j: number) => j !== ti))
   }
 
   const post = editing !== null ? d.blogPosts[editing] : null
@@ -81,7 +81,7 @@ export default function AdminBlogPage() {
       <div style={{ display: 'grid', gridTemplateColumns: post ? '280px 1fr' : '1fr', gap: 16, alignItems: 'start' }}>
         {/* List */}
         <div>
-          {d?.blogPosts?.map((p, i) => (
+          {d?.blogPosts?.map((p: BlogPost, i: number) => (
             <div key={i} onClick={() => setEditing(i)} style={{
               padding: '12px 14px', borderRadius: 10, marginBottom: 8, cursor: 'pointer',
               background: editing === i ? 'rgba(59,125,216,0.12)' : 'rgba(255,255,255,0.03)',
@@ -135,7 +135,7 @@ export default function AdminBlogPage() {
             <Card>
               <CardTitle>Tags</CardTitle>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
-                {post.tags.map((t, ti) => <TagPill key={ti} label={t} onRemove={() => removeTag(editing, ti)} />)}
+                {post.tags.map((t: string, ti: number) => <TagPill key={ti} label={t} onRemove={() => removeTag(editing, ti)} />)}
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <input value={newTag} onChange={e => setNewTag(e.target.value)} onKeyDown={e => e.key === 'Enter' && addTag(editing)}

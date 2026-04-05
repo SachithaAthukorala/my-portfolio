@@ -46,17 +46,17 @@ export default function AdminWorksPage() {
   }
 
   function setProj(i: number, k: keyof Project, v: unknown) {
-    setD(p => { const a = [...p.projects]; a[i] = { ...a[i], [k]: v }; return { ...p, projects: a } })
+    setD((p: any) => { const a = [...p.projects]; a[i] = { ...a[i], [k]: v }; return { ...p, projects: a } })
   }
 
   function addProject() {
     const p = emptyProject()
-    setD(prev => ({ ...prev, projects: [...prev.projects, p] }))
+    setD((prev: any) => ({ ...prev, projects: [...prev.projects, p] }))
     setEditing(d.projects.length)
   }
 
   function removeProject(i: number) {
-    setD(p => ({ ...p, projects: p.projects.filter((_, j) => j !== i) }))
+    setD((p: any) => ({ ...p, projects: p.projects.filter((_: any, j: number) => j !== i) }))
     if (editing === i) setEditing(null)
   }
 
@@ -68,7 +68,7 @@ export default function AdminWorksPage() {
   }
 
   function removeStack(pi: number, si: number) {
-    setProj(pi, 'stack', d.projects[pi].stack.filter((_, j) => j !== si))
+    setProj(pi, 'stack', d.projects[pi].stack.filter((_: any, j: number) => j !== si))
   }
 
   function setMetric(pi: number, mi: number, k: 'value' | 'label', v: string) {
@@ -82,7 +82,7 @@ export default function AdminWorksPage() {
   }
 
   function removeMetric(pi: number, mi: number) {
-    setProj(pi, 'metrics', d.projects[pi].metrics.filter((_, j) => j !== mi))
+    setProj(pi, 'metrics', d.projects[pi].metrics.filter((_: any, j: number) => j !== mi))
   }
 
   const proj = editing !== null ? d.projects[editing] : null
@@ -99,7 +99,7 @@ export default function AdminWorksPage() {
       <div style={{ display: 'grid', gridTemplateColumns: editing !== null ? '280px 1fr' : '1fr', gap: 16, alignItems: 'start' }}>
         {/* List */}
         <div>
-          {d?.projects?.map((p, i) => (
+          {d?.projects?.map((p: Project, i: number) => (
             <div key={i} onClick={() => setEditing(i)} style={{
               padding: '12px 14px', borderRadius: 10, marginBottom: 8, cursor: 'pointer', transition: 'all .15s',
               background: editing === i ? 'rgba(59,125,216,0.12)' : 'rgba(255,255,255,0.03)',
@@ -175,7 +175,7 @@ export default function AdminWorksPage() {
             <Card>
               <CardTitle>Tech Stack</CardTitle>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
-                {proj.stack.map((t, si) => <TagPill key={si} label={t} onRemove={() => removeStack(editing, si)} />)}
+                {proj.stack.map((t: string, si: number) => <TagPill key={si} label={t} onRemove={() => removeStack(editing, si)} />)}
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <input value={newTag} onChange={e => setNewTag(e.target.value)} onKeyDown={e => e.key === 'Enter' && addStack(editing)}
@@ -186,7 +186,7 @@ export default function AdminWorksPage() {
 
             <Card>
               <CardTitle>Metrics</CardTitle>
-              {proj.metrics.map((m, mi) => (
+              {proj.metrics.map((m: any, mi: number) => (
                 <div key={mi} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 8, marginBottom: 8, alignItems: 'flex-end' }}>
                   <Field label={mi === 0 ? 'Value' : ''} value={m.value} onChange={v => setMetric(editing, mi, 'value', v)} placeholder="1,000+" />
                   <Field label={mi === 0 ? 'Label' : ''} value={m.label} onChange={v => setMetric(editing, mi, 'label', v)} placeholder="Users/Month" />

@@ -15,19 +15,19 @@ export default function AdminHeroPage() {
   }, [])
 
   function cfg(key: string, val: string) {
-    setD(p => ({ ...p, siteConfig: { ...p.siteConfig, [key]: val } }))
+    setD((p: any) => ({ ...p, siteConfig: { ...p.siteConfig, [key]: val } }))
   }
 
   function addStat() {
-    setD(p => ({ ...p, stats: [...p.stats, { value: '', label: '' }] }))
+    setD((p: any) => ({ ...p, stats: [...p.stats, { value: '', label: '' }] }))
   }
 
   function setStat(i: number, k: 'value' | 'label', v: string) {
-    setD(p => { const s = [...p.stats]; s[i] = { ...s[i], [k]: v }; return { ...p, stats: s } })
+    setD((p: any) => { const s = [...p.stats]; s[i] = { ...s[i], [k]: v }; return { ...p, stats: s } })
   }
 
   function removeStat(i: number) {
-    setD(p => ({ ...p, stats: p.stats.filter((_, j) => j !== i) }))
+    setD((p: any) => ({ ...p, stats: p.stats.filter((_: any, j: number) => j !== i) }))
   }
 
   async function save() {
@@ -70,7 +70,7 @@ export default function AdminHeroPage() {
           <Field label="Location" value={s.location} onChange={v => cfg('location', v)} placeholder="Anuradhapura, Sri Lanka" />
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8 }}>
             <label style={{ fontSize: 12, color: '#9aabc5', fontWeight: 600 }}>Available for hire</label>
-            <input type="checkbox" checked={s.available} onChange={e => setD(p => ({ ...p, siteConfig: { ...p.siteConfig, available: e.target.checked } }))} style={{ width: 16, height: 16, cursor: 'pointer' }} />
+            <input type="checkbox" checked={s.available} onChange={e => setD((p: any) => ({ ...p, siteConfig: { ...p.siteConfig, available: e.target.checked } }))} style={{ width: 16, height: 16, cursor: 'pointer' }} />
           </div>
         </Card>
 
@@ -79,7 +79,7 @@ export default function AdminHeroPage() {
           <CardTitle>Social Links</CardTitle>
           {(['github', 'linkedin', 'twitter', 'instagram'] as const).map(k => (
             <Field key={k} label={k.charAt(0).toUpperCase() + k.slice(1)} value={s.socials?.[k] || ''}
-              onChange={v => setD(p => ({ ...p, siteConfig: { ...p.siteConfig, socials: { ...p.siteConfig.socials, [k]: v } } }))}
+              onChange={v => setD((p: any) => ({ ...p, siteConfig: { ...p.siteConfig, socials: { ...p.siteConfig.socials, [k]: v } } }))}
               placeholder={`https://${k}.com/yourhandle`} />
           ))}
         </Card>
@@ -87,7 +87,7 @@ export default function AdminHeroPage() {
         {/* Stats */}
         <Card>
           <CardTitle>Hero Stats</CardTitle>
-          {d.stats.map((stat, i) => (
+          {d.stats.map((stat: any, i: number) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 8, marginBottom: 8, alignItems: 'flex-end' }}>
               <Field label={i === 0 ? 'Value' : ''} value={stat.value} onChange={v => setStat(i, 'value', v)} placeholder="5+" />
               <Field label={i === 0 ? 'Label' : ''} value={stat.label} onChange={v => setStat(i, 'label', v)} placeholder="Years Experience" />

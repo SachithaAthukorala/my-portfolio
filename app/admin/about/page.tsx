@@ -32,19 +32,19 @@ export default function AdminAboutPage() {
   }
 
   function setExp(i: number, k: keyof typeof d.experiences[0], v: string | string[]) {
-    setD(p => { const a = [...p.experiences]; a[i] = { ...a[i], [k]: v }; return { ...p, experiences: a } })
+    setD((p: any) => { const a = [...p.experiences]; a[i] = { ...a[i], [k]: v }; return { ...p, experiences: a } })
   }
 
   function addExp() {
-    setD(p => ({ ...p, experiences: [...p.experiences, { role: '', company: '', period: '', description: '', achievements: [''] }] }))
+    setD((p: any) => ({ ...p, experiences: [...p.experiences, { role: '', company: '', period: '', description: '', achievements: [''] }] }))
   }
 
   function removeExp(i: number) {
-    setD(p => ({ ...p, experiences: p.experiences.filter((_, j) => j !== i) }))
+    setD((p: any) => ({ ...p, experiences: p.experiences.filter((_: any, j: number) => j !== i) }))
   }
 
   function setAchievement(ei: number, ai: number, v: string) {
-    setD(p => {
+    setD((p: any) => {
       const exps = [...p.experiences]
       const ach  = [...exps[ei].achievements]
       ach[ai]    = v
@@ -54,7 +54,7 @@ export default function AdminAboutPage() {
   }
 
   function addAchievement(ei: number) {
-    setD(p => {
+    setD((p: any) => {
       const exps = [...p.experiences]
       exps[ei]   = { ...exps[ei], achievements: [...exps[ei].achievements, ''] }
       return { ...p, experiences: exps }
@@ -62,23 +62,23 @@ export default function AdminAboutPage() {
   }
 
   function removeAchievement(ei: number, ai: number) {
-    setD(p => {
+    setD((p: any) => {
       const exps = [...p.experiences]
-      exps[ei]   = { ...exps[ei], achievements: exps[ei].achievements.filter((_, j) => j !== ai) }
+      exps[ei]   = { ...exps[ei], achievements: exps[ei].achievements.filter((_: any, j: number) => j !== ai) }
       return { ...p, experiences: exps }
     })
   }
 
   function setCert(i: number, k: keyof typeof d.certifications[0], v: string) {
-    setD(p => { const a = [...p.certifications]; a[i] = { ...a[i], [k]: v }; return { ...p, certifications: a } })
+    setD((p: any) => { const a = [...p.certifications]; a[i] = { ...a[i], [k]: v }; return { ...p, certifications: a } })
   }
 
   function addCert() {
-    setD(p => ({ ...p, certifications: [...p.certifications, { name: '', issuer: '', year: '' }] }))
+    setD((p: any) => ({ ...p, certifications: [...p.certifications, { name: '', issuer: '', year: '' }] }))
   }
 
   function removeCert(i: number) {
-    setD(p => ({ ...p, certifications: p.certifications.filter((_, j) => j !== i) }))
+    setD((p: any) => ({ ...p, certifications: p.certifications.filter((_: any, j: number) => j !== i) }))
   }
 
   return (
@@ -92,7 +92,7 @@ export default function AdminAboutPage() {
           <AddBtn onClick={addExp} label="+ Add Role" />
         </div>
 
-        {d?.experiences?.map((exp, i) => (
+        {d?.experiences?.map((exp: any, i: number) => (
           <div key={i} style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: 16, marginBottom: 12 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
               <p style={{ color: '#9aabc5', fontSize: 12, fontWeight: 600 }}>Role #{i + 1}</p>
@@ -105,7 +105,7 @@ export default function AdminAboutPage() {
             </div>
             <Field label="Description" value={exp.description} onChange={v => setExp(i, 'description', v)} rows={3} />
             <p style={{ fontSize: 12, color: '#9aabc5', fontWeight: 600, marginBottom: 8 }}>Achievements</p>
-            {exp.achievements.map((a, ai) => (
+            {exp.achievements.map((a: any, ai: number) => (
               <div key={ai} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
                 <input value={a} onChange={e => setAchievement(i, ai, e.target.value)} placeholder={`Achievement ${ai + 1}`}
                   style={{ flex: 1, background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '8px 12px', color: '#fff', fontSize: 13, outline: 'none' }} />
@@ -127,7 +127,7 @@ export default function AdminAboutPage() {
           <CardTitle>Certifications</CardTitle>
           <AddBtn onClick={addCert} label="+ Add Cert" />
         </div>
-        {d?.certifications?.map((cert, i) => (
+        {d?.certifications?.map((cert: any, i: number) => (
           <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 100px auto', gap: 8, marginBottom: 8, alignItems: 'flex-end' }}>
             <Field label={i === 0 ? 'Name' : ''} value={cert.name}   onChange={v => setCert(i, 'name', v)}   placeholder="AWS Certified Developer" />
             <Field label={i === 0 ? 'Issuer' : ''} value={cert.issuer} onChange={v => setCert(i, 'issuer', v)} placeholder="Amazon Web Services" />

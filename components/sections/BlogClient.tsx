@@ -117,7 +117,7 @@ export function BlogClient() {
     )
 }
 
-function BlogCard({ post }: { post: (typeof blogPosts)[0] }) {
+function BlogCard({ post }: { post: SiteData['blogPosts'][0] }) {
     return (
         <Link
             href={`/blog/${post.slug}`}

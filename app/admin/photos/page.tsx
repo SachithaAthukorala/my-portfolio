@@ -37,7 +37,7 @@ export default function AdminPhotosPage() {
   }
 
   function setAlbum(i: number, k: string, v: string | number) {
-    setD(p => {
+    setD((p: any) => {
       const a = [...p.photoCategories]
       a[i] = { ...a[i], [k]: v }
       return { ...p, photoCategories: a }
@@ -45,14 +45,14 @@ export default function AdminPhotosPage() {
   }
 
   function addAlbum() {
-    setD(p => ({
+    setD((p: any) => ({
       ...p,
       photoCategories: [...p.photoCategories, { name: '', count: 0, cover: '', description: '' }],
     }))
   }
 
   function removeAlbum(i: number) {
-    setD(p => ({ ...p, photoCategories: p.photoCategories.filter((_, j) => j !== i) }))
+    setD((p: any) => ({ ...p, photoCategories: p.photoCategories.filter((_: any, j: number) => j !== i) }))
   }
 
   function handleFileChange(i: number, e: React.ChangeEvent<HTMLInputElement>) {
@@ -67,7 +67,7 @@ export default function AdminPhotosPage() {
   }
 
   function toggleMode(i: number) {
-    setModes(p => ({ ...p, [i]: p[i] === 'file' ? 'url' : 'file' }))
+    setModes((p: any) => ({ ...p, [i]: p[i] === 'file' ? 'url' : 'file' }))
     setAlbum(i, 'cover', '')
   }
 
@@ -85,7 +85,7 @@ export default function AdminPhotosPage() {
       />
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16 }}>
-        {d?.photoCategories?.map((album, i) => {
+        {d?.photoCategories?.map((album: any, i: number) => {
           const mode = modes[i] || 'url'
           return (
             <Card key={i}>
