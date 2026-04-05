@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { DM_Sans, DM_Serif_Display, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -40,13 +38,12 @@ export const metadata: Metadata = {
   },
 }
 
+// Fonts and global CSS only — Navbar/Footer are in (portfolio)/layout.tsx
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${dmSerif.variable} ${jetbrains.variable}`}>
       <body className="bg-navy-700 text-white antialiased font-sans">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   )
