@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { ArrowRight, Github, Linkedin, Download, Camera, Code2, Smartphone, Monitor } from 'lucide-react'
-import { loadData } from '@/lib/store'
+import { loadData, getDefaults } from '@/lib/store'
 import type { SiteData } from '@/lib/store'
 
 const roles = [
@@ -69,22 +69,13 @@ function TypingBadge() {
 }
 
 export function HeroSection() {
-  const [data, setData] = useState<SiteData | null>(null)
-  const [loading, setLoading] = useState(true)
+  // Pre-fill with defaults so the hero renders immediately (no loading flash).
+  // When the real data resolves, only dynamic values (tagline, stats, socials) update.
+  const [data, setData] = useState<SiteData>(getDefaults)
 
   useEffect(() => {
-    loadData().then(setData).finally(() => setLoading(false))
+    loadData().then(setData)
   }, [])
-
-  if (loading || !data) {
-    return (
-      <section className="relative min-h-screen flex items-center bg-navy-700 overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-5 md:px-8 pt-24 pb-20 w-full">
-          <p className="text-navy-200">Loading...</p>
-        </div>
-      </section>
-    )
-  }
 
   const siteConfig = data.siteConfig
   const stats = data.stats
