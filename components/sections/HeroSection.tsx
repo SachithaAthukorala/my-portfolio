@@ -8,7 +8,6 @@ import { loadData, getDefaults } from '@/lib/store'
 import type { SiteData } from '@/lib/store'
 
 const roles = [
-  { label: 'Photographer', icon: Camera, color: 'text-gold-500', border: 'border-gold-500/40', bg: 'bg-gold-500/10' },
   { label: 'Web Dev', icon: Code2, color: 'text-accent-300', border: 'border-accent-400/40', bg: 'bg-accent-400/10' },
   { label: 'Mobile Dev', icon: Smartphone, color: 'text-purple-400', border: 'border-purple-500/40', bg: 'bg-purple-500/10' },
   { label: 'Desktop Dev', icon: Monitor, color: 'text-teal-400', border: 'border-teal-500/40', bg: 'bg-teal-500/10' },
@@ -118,9 +117,6 @@ export function HeroSection() {
               </span>
               <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
                 <Monitor size={11} className="text-accent-400" /> Desktop
-              </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
-                <Camera size={11} className="text-gold-500" /> Photographer
               </span>
             </div>
 

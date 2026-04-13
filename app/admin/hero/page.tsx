@@ -59,7 +59,7 @@ export default function AdminHeroPage() {
         <Card>
           <CardTitle>Identity</CardTitle>
           <Field label="Full Name"    value={s.name}     onChange={v => cfg('name', v)}     placeholder="Sachitha Athukorala" />
-          <Field label="Role / Title" value={s.role}     onChange={v => cfg('role', v)}     placeholder="Full-Stack Developer & Photographer" />
+          <Field label="Role / Title" value={s.role}     onChange={v => cfg('role', v)}     placeholder="Full-Stack Developer" />
           <Field label="Tagline"      value={s.tagline}  onChange={v => cfg('tagline', v)}  placeholder="I craft high-performance applications…" rows={3} />
         </Card>
 
