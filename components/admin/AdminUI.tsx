@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { CheckCircle2, X } from 'lucide-react'
 
 /* ── Toast ──────────────────────────────────────── */
@@ -31,11 +31,12 @@ export function PageHeader({ title, desc, action }: { title: string; desc?: stri
 }
 
 /* ── Card ───────────────────────────────────────── */
-export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function Card({ children, className = '', style }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
     <div className={className} style={{
       background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
       borderRadius: 12, padding: 24,
+      ...style,
     }}>
       {children}
     </div>

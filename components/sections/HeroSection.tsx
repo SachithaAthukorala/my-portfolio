@@ -3,23 +3,38 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { ArrowRight, Github, Linkedin, Download, Camera, Code2, Smartphone, Monitor } from 'lucide-react'
+import { ArrowRight, Github, Linkedin, Download, Camera, Code2, Smartphone, Monitor, LucideIcon } from 'lucide-react'
 import { loadData, getDefaults } from '@/lib/store'
 import type { SiteData } from '@/lib/store'
 
-const roles = [
-  { label: 'Web Dev', icon: Code2, color: 'text-accent-300', border: 'border-accent-400/40', bg: 'bg-accent-400/10' },
-  { label: 'Mobile Dev', icon: Smartphone, color: 'text-purple-400', border: 'border-purple-500/40', bg: 'bg-purple-500/10' },
-  { label: 'Desktop Dev', icon: Monitor, color: 'text-teal-400', border: 'border-teal-500/40', bg: 'bg-teal-500/10' },
-]
+// Map icon name string → Lucide component
+const ICON_MAP: Record<string, LucideIcon> = {
+  Code2, Smartphone, Monitor, Camera,
+}
 
-function TypingBadge() {
+// Map color name → Tailwind classes
+const COLOR_MAP: Record<string, { text: string; border: string; bg: string; pill: string }> = {
+  accent:  { text: 'text-accent-300',  border: 'border-accent-400/40',  bg: 'bg-accent-400/10',  pill: 'text-accent-400'  },
+  purple:  { text: 'text-purple-400',  border: 'border-purple-500/40',  bg: 'bg-purple-500/10',  pill: 'text-purple-400'  },
+  teal:    { text: 'text-teal-400',    border: 'border-teal-500/40',    bg: 'bg-teal-500/10',    pill: 'text-teal-400'    },
+  gold:    { text: 'text-yellow-400',  border: 'border-yellow-500/40',  bg: 'bg-yellow-500/10',  pill: 'text-yellow-400'  },
+  pink:    { text: 'text-pink-400',    border: 'border-pink-500/40',    bg: 'bg-pink-500/10',    pill: 'text-pink-400'    },
+  green:   { text: 'text-green-400',   border: 'border-green-500/40',   bg: 'bg-green-500/10',   pill: 'text-green-400'   },
+  blue:    { text: 'text-blue-400',    border: 'border-blue-500/40',    bg: 'bg-blue-500/10',    pill: 'text-blue-400'    },
+  orange:  { text: 'text-orange-400',  border: 'border-orange-500/40',  bg: 'bg-orange-500/10',  pill: 'text-orange-400'  },
+}
+
+const DEFAULT_COLORS = COLOR_MAP.accent
+
+function TypingBadge({ roles }: { roles: SiteData['heroRoles'] }) {
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [phase, setPhase] = useState<'typing' | 'pause' | 'erasing'>('typing')
 
+  const safeRoles = roles?.length ? roles : [{ label: 'Developer', icon: 'Code2', color: 'accent' }]
+
   useEffect(() => {
-    const current = roles[roleIndex].label
+    const current = safeRoles[roleIndex % safeRoles.length].label
     let timeout: ReturnType<typeof setTimeout>
 
     if (phase === 'typing') {
@@ -34,16 +49,17 @@ function TypingBadge() {
       if (displayed.length > 0) {
         timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 55)
       } else {
-        setRoleIndex((i) => (i + 1) % roles.length)
+        setRoleIndex((i) => (i + 1) % safeRoles.length)
         setPhase('typing')
       }
     }
 
     return () => clearTimeout(timeout)
-  }, [displayed, phase, roleIndex])
+  }, [displayed, phase, roleIndex, safeRoles])
 
-  const role = roles[roleIndex]
-  const Icon = role.icon
+  const role = safeRoles[roleIndex % safeRoles.length]
+  const colors = COLOR_MAP[role.color] ?? DEFAULT_COLORS
+  const Icon = ICON_MAP[role.icon] ?? Code2
 
   return (
     <div
@@ -52,12 +68,12 @@ function TypingBadge() {
         flex items-center gap-2.5
         px-4 py-2.5 rounded-xl
         bg-navy-800/95 backdrop-blur-sm shadow-xl
-        border ${role.border}
+        border ${colors.border}
         transition-colors duration-500
       `}
     >
-      <div className={`w-7 h-7 rounded-lg ${role.bg} flex items-center justify-center flex-shrink-0 transition-colors duration-500`}>
-        <Icon size={14} className={`${role.color} transition-colors duration-500`} />
+      <div className={`w-7 h-7 rounded-lg ${colors.bg} flex items-center justify-center flex-shrink-0 transition-colors duration-500`}>
+        <Icon size={14} className={`${colors.text} transition-colors duration-500`} />
       </div>
       <span className="text-xs font-semibold text-white min-w-[88px]">
         {displayed}
@@ -78,6 +94,7 @@ export function HeroSection() {
 
   const siteConfig = data.siteConfig
   const stats = data.stats
+  const heroRoles = data.heroRoles
 
   return (
     <section className="relative min-h-screen flex items-center bg-navy-700 overflow-hidden">
@@ -109,15 +126,15 @@ export function HeroSection() {
             </h1>
 
             <div className="flex flex-wrap gap-2.5 mb-7 animate-fade-up" style={{ animationDelay: '0.1s' }}>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
-                <Code2 size={11} className="text-accent-400" /> Web
-              </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
-                <Smartphone size={11} className="text-accent-400" /> Mobile
-              </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
-                <Monitor size={11} className="text-accent-400" /> Desktop
-              </span>
+              {heroRoles?.map((role) => {
+                const Icon = ICON_MAP[role.icon] ?? Code2
+                const colors = COLOR_MAP[role.color] ?? DEFAULT_COLORS
+                return (
+                  <span key={role.label} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/6 border border-white/10 text-xs text-navy-200 font-medium">
+                    <Icon size={11} className={colors.pill} /> {role.label}
+                  </span>
+                )
+              })}
             </div>
 
             <p className="text-navy-200 text-lg leading-relaxed max-w-lg mb-10 animate-fade-up" style={{ animationDelay: '0.2s' }}>
@@ -169,7 +186,7 @@ export function HeroSection() {
               </div>
 
               {/* Typing badge — bottom left */}
-              <TypingBadge />
+              <TypingBadge roles={heroRoles} />
 
               {/* Available badge — top right (static) */}
               <div className="absolute -top-4 -right-6 z-10 bg-navy-800/95 border border-green-500/30 rounded-xl px-4 py-2.5 backdrop-blur-sm shadow-lg">

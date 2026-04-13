@@ -1,8 +1,8 @@
 import { connectDB } from '@/lib/mongodb'
 import SiteDataModel from '@/lib/dbModel'
-import { siteConfig, skills, projects, blogPosts, photoCategories, stats, experiences, certifications } from '@/lib/data'
+import { siteConfig, heroRoles, skills, projects, blogPosts, photoCategories, stats, experiences, certifications } from '@/lib/data'
 
-const defaults = { siteConfig, stats, skills, projects, blogPosts, photoCategories, experiences, certifications }
+const defaults = { siteConfig, heroRoles, stats, skills, projects, blogPosts, photoCategories, experiences, certifications }
 
 export async function POST() {
   try {

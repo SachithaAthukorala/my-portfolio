@@ -7,6 +7,7 @@ import mongoose, { Schema, Model } from 'mongoose'
 export interface ISiteData extends Omit<mongoose.Document, '_id'> {
   _id: string
   siteConfig: Record<string, unknown>
+  heroRoles: unknown[]
   stats: unknown[]
   skills: unknown[]
   projects: unknown[]
@@ -21,6 +22,7 @@ const SiteDataSchema = new Schema<ISiteData>(
   {
     _id: { type: String, default: 'main' },
     siteConfig:      { type: Schema.Types.Mixed, default: {} },
+    heroRoles:       { type: [Schema.Types.Mixed], default: [] },
     stats:           { type: [Schema.Types.Mixed], default: [] },
     skills:          { type: [Schema.Types.Mixed], default: [] },
     projects:        { type: [Schema.Types.Mixed], default: [] },

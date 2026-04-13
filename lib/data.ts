@@ -13,6 +13,12 @@ export const siteConfig = {
   },
 }
 
+export const heroRoles = [
+  { label: 'Web Developer', icon: 'Code2', color: 'accent' },
+  { label: 'Mobile App Developer', icon: 'Smartphone', color: 'purple' },
+  { label: 'Desktop Developer', icon: 'Monitor', color: 'teal' },
+]
+
 export const skills = [
   {
     category: 'Frontend / Web',

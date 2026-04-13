@@ -1,10 +1,11 @@
 // Store that syncs with /api/data/load and /api/data/save endpoints.
 // Data is persisted in /public/data.json on the server.
 
-import { siteConfig, skills, projects, blogPosts, photoCategories, stats, experiences, certifications } from './data'
+import { siteConfig, heroRoles, skills, projects, blogPosts, photoCategories, stats, experiences, certifications } from './data'
 
 export type SiteData = {
   siteConfig: typeof siteConfig
+  heroRoles: typeof heroRoles
   stats: typeof stats
   skills: typeof skills
   projects: typeof projects
@@ -15,7 +16,7 @@ export type SiteData = {
 }
 
 export function getDefaults(): SiteData {
-  return { siteConfig, stats, skills, projects, blogPosts, photoCategories, experiences, certifications }
+  return { siteConfig, heroRoles, stats, skills, projects, blogPosts, photoCategories, experiences, certifications }
 }
 
 // Singleton cache: all components on the same page share one fetch promise.
