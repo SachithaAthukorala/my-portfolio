@@ -1,17 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import { Sparkles, User, BookOpen, Briefcase, FileText, Camera, Settings, ArrowRight } from 'lucide-react'
+import { Sparkles, User, BookOpen, Briefcase, FileText, Camera, Settings, ArrowRight, MessageSquare } from 'lucide-react'
 import { blogPosts, projects, skills, photoCategories } from '@/lib/data'
 
 const sections = [
-  { href: '/admin/hero',     label: 'Hero Section',  desc: 'Name, tagline, role pills, CTA buttons',           icon: Sparkles,  color: '#5e99ee' },
-  { href: '/admin/about',    label: 'About',         desc: 'Bio text, work experience, certifications',         icon: User,      color: '#a78bfa' },
-  { href: '/admin/skills',   label: 'Skills',        desc: `${skills.length} skill groups — add or remove`,    icon: BookOpen,  color: '#34d399' },
-  { href: '/admin/works',    label: 'Works',         desc: `${projects.length} projects — full case studies`,   icon: Briefcase, color: '#f59e0b' },
-  { href: '/admin/blog',     label: 'Blog',          desc: `${blogPosts.length} posts — write and edit`,        icon: FileText,  color: '#fb7185' },
-  { href: '/admin/photos',   label: 'Photo Albums',  desc: `${photoCategories.length} albums — manage gallery`, icon: Camera,   color: '#fbbf24' },
-  { href: '/admin/settings', label: 'Settings',      desc: 'Email, socials, password',                         icon: Settings,  color: '#94a3b8' },
+  { href: '/admin/hero',     label: 'Hero Section',  desc: 'Name, tagline, role pills, CTA buttons',           icon: Sparkles,       color: '#5e99ee' },
+  { href: '/admin/about',    label: 'About',         desc: 'Bio text, work experience, certifications',         icon: User,           color: '#a78bfa' },
+  { href: '/admin/skills',   label: 'Skills',        desc: `${skills.length} skill groups — add or remove`,    icon: BookOpen,       color: '#34d399' },
+  { href: '/admin/works',    label: 'Works',         desc: `${projects.length} projects — full case studies`,   icon: Briefcase,      color: '#f59e0b' },
+  { href: '/admin/blog',     label: 'Blog',          desc: `${blogPosts.length} posts — write and edit`,        icon: FileText,       color: '#fb7185' },
+  { href: '/admin/photos',   label: 'Photo Albums',  desc: `${photoCategories.length} albums — manage gallery`, icon: Camera,         color: '#fbbf24' },
+  { href: '/admin/messages', label: 'Messages',      desc: 'View contact form submissions',                     icon: MessageSquare,  color: '#38bdf8' },
+  { href: '/admin/settings', label: 'Settings',      desc: 'Email, socials, password',                         icon: Settings,       color: '#94a3b8' },
 ]
 
 function SectionCard({ href, label, desc, icon: Icon, color }: typeof sections[0]) {

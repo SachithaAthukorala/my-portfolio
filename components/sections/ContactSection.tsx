@@ -9,6 +9,8 @@ export function ContactSection() {
   const [data, setData] = useState<SiteData | null>(null)
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     loadData().then(setData)
@@ -18,10 +20,30 @@ export function ContactSection() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setSent(true)
-    setForm({ name: '', email: '', subject: '', message: '' })
+    setError('')
+    setSending(true)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      setSent(true)
+      setForm({ name: '', email: '', subject: '', message: '' })
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSending(false)
+    }
   }
 
   const siteConfig = data?.siteConfig
@@ -166,9 +188,12 @@ export function ContactSection() {
                   />
                 </div>
 
-                <button type="submit" className="btn-primary w-full justify-center py-3">
-                  <Send size={15} /> Send Message
+                <button type="submit" disabled={sending} className="btn-primary w-full justify-center py-3" style={{ opacity: sending ? 0.7 : 1, cursor: sending ? 'wait' : 'pointer' }}>
+                  <Send size={15} /> {sending ? 'Sending...' : 'Send Message'}
                 </button>
+                {error && (
+                  <p className="text-red-400 text-xs text-center mt-3">{error}</p>
+                )}
               </form>
             )}
           </div>

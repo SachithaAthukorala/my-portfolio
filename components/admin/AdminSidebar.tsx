@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, FileText, Briefcase,
   Settings, LogOut, ExternalLink, User,
-  Sparkles, BookOpen, Camera, ChevronRight,
+  Sparkles, BookOpen, Camera, ChevronRight, MessageSquare,
 } from 'lucide-react'
 
 const nav = [
@@ -19,6 +19,7 @@ const nav = [
     { href: '/admin/works',    label: 'Works',        icon: Briefcase       },
     { href: '/admin/blog',     label: 'Blog',         icon: FileText        },
     { href: '/admin/photos',   label: 'Photo Albums', icon: Camera          },
+    { href: '/admin/messages', label: 'Messages',     icon: MessageSquare   },
   ]},
   { group: 'System',   items: [
     { href: '/admin/settings', label: 'Settings',     icon: Settings        },
